@@ -90,9 +90,15 @@ You can deploy this project using:
 
 👤 _Nalian Achei_
 
-- Github: [@NalianAchei2020](https://github.com/NalianAchei2020)
-- Linkedin: [Nalian Achei](https://www.linkedin.com/in/nalian-achei-683208275)
-- Twitter: [@NalianAchei](https://twitter.com/NalianAchei?t=E3ePLcJ7B45dBa8SBFIXDg&s=09)
+- Github: [@Ndonyi ](https://github.com/citec-47)
+- Linkedin: [donyi](https://www.linkedin.com/in/nalian-achei-683208275)
+- Twitter: [@Ndonyi](https://twitter.com/NalianAchei?t=E3ePLcJ7B45dBa8SBFIXDg&s=09)
+
+👤 Ndonyi Maurice Djam
+
+- GitHub: [@citec-47](https://github.com/citec-47)
+- Twitter: [@Ndonyi4](https://twitter.com/Ndonyi4)
+- LinkedIn: [@ndonyi-maurice](https://www.linkedin.com/in/ndonyi-maurice-b5b49b22b/)
 
 ## 🔭 Future Features <a name="future-features"></a>
 
