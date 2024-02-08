@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import config from './config';
+import config from './config.js';
 
 const app = express();
 
@@ -13,5 +13,5 @@ app.use(express.json);
 
 const port = config.PORT;
 app.listen(port, () => {
-  console.log(`Sever is listening to  ${port}`);
+  console.log(`Sever is listening to port ${port}`);
 });
