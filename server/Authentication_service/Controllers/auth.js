@@ -1,6 +1,7 @@
+import bcrypt from 'bcrypt';
 import User from '../models/userModel.js';
 
-const register = (req, res) => {
+const register = async (req, res) => {
   try {
     const { name, email } = req.body;
     const existingUser = User.findOne({ email });
@@ -16,5 +17,26 @@ const register = (req, res) => {
       password: hash,
       isAdmin: false,
     });
-  } catch (error) {}
+    const savedUser = await user.save();
+
+    const { password, isAdmin, ...otherDatails } = user._doc;
+    res
+      .cookie('access_token', generateToken(savedUser), {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none',
+        maxAge: 24 * 60 * 60 * 1000,
+        path: '/',
+      })
+      .status(200)
+      .json({
+        ...otherDatails,
+        auth: true,
+        isAdmin: isAdmin,
+        message: 'User created',
+      });
+  } catch (err) {
+    res.status(500).send({ message: 'Server error' });
+    next(err);
+  }
 };
