@@ -40,3 +40,33 @@ const register = async (req, res) => {
     next(err);
   }
 };
+
+export const login = async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      email: req.body.email,
+    });
+    if (!user) return next(createError(404, 'user not found!'));
+    const isPasswordCurrent = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!isPasswordCurrent)
+      return next(createError(400, 'Wrong username or password!'));
+
+    const { password, isAdmin, ...otherDatails } = user._doc;
+    res
+      .cookie('access_token', generateToken(user), {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none',
+        maxAge: 24 * 60 * 60 * 1000,
+        path: '/',
+      })
+      .status(200)
+      .json({ ...otherDatails, auth: true, isAdmin: isAdmin });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+    next(err);
+  }
+};
