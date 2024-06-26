@@ -13,5 +13,6 @@ app.use(express.json);
 
 const port = config.PORT;
 app.listen(port, () => {
-  console.log(`Sever is listening to port ${port}`);
+  console.log(`Sever is listening to port
+     ${port}`);
 });
