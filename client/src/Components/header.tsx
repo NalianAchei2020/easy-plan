@@ -21,6 +21,7 @@ const Header: React.FC = () => {
             Help Center
           </a>
         </nav>
+        <div className="flex space-x-4"></div>
       </div>
     </header>
   );
