@@ -8,19 +8,19 @@ interface FeatureProps {
 
 const features: FeatureProps[] = [
   {
-    image: 'https://via.placeholder.com/150', // Replace with actual image URL
+    image: 'img1.png',
     title: 'Easy-to-Use Interface',
     description:
       'Our intuitive app simplifies business plan creation for entrepreneurs by providing a user-friendly platform. With a streamlined input process, you can effortlessly enter your information and transform it into a comprehensive business plan.',
   },
   {
-    image: 'https://via.placeholder.com/150', // Replace with actual image URL
+    image: 'img1.png',
     title: 'Customizable Templates',
     description:
       'Explore our range of ready-made templates that are designed by professionals. Customize them to match your specific business requirements and give your brand a personalized look.',
   },
   {
-    image: 'https://via.placeholder.com/150', // Replace with actual image URL
+    image: 'img1.png',
     title: 'Financial Analysis',
     description:
       "Easily assess the financial viability of your business using our tools. Generate reliable financial projections and visualize data with clear charts and graphs, helping you make informed decisions and understand your business's financial health.",
