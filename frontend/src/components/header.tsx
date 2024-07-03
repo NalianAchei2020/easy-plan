@@ -5,7 +5,9 @@ const Header = () => {
     <header className="bg-white-50 py-4 shadow-md">
       <div className="container mx-auto flex items-center justify-between">
         <div className="text-2xl font-bold">
-          <img src="LOGO 1.png" />
+          <Link to="/">
+            <img src="LOGO 1.png" />
+          </Link>
         </div>
         <nav className="flex items-center space-x-6">
           <Link to="/features" className="text-gray-700">
