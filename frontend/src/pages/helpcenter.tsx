@@ -1,7 +1,9 @@
-import React from 'react';
-
 const Helpcenter = () => {
-  return <div></div>;
+  return (
+    <div>
+      <h1>Help Center</h1>
+    </div>
+  );
 };
 
 export default Helpcenter;

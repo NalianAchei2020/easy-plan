@@ -7,6 +7,7 @@ import Blog from './pages/blog';
 import Helpcenter from './pages/helpcenter';
 import Template from './pages/template';
 import Features from './pages/Features';
+import Signup from './pages/signup';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/help-center" element={<Helpcenter />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </Router>
     </>

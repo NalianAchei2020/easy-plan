@@ -21,10 +21,7 @@ const Header = () => {
           <Link to="/login" className="text-gray-700">
             Login
           </Link>
-          <Link
-            to="/get-started"
-            className="bg-black text-white px-4 py-2 rounded"
-          >
+          <Link to="/signup" className="bg-black text-white px-4 py-2 rounded">
             Get Started
           </Link>
         </nav>
