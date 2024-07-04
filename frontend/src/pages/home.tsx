@@ -1,3 +1,4 @@
+import BlogSection from '../components/blogSection';
 import FeaturesSection from '../components/featureSection';
 import TemplateSECTION from '../components/templateSECTION';
 
@@ -37,6 +38,7 @@ const Home = () => {
       </section>
       <FeaturesSection />
       <TemplateSECTION />
+      <BlogSection />
     </>
   );
 };
