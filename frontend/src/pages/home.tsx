@@ -1,4 +1,5 @@
 import FeaturesSection from '../components/featureSection';
+import TemplateSECTION from '../components/templateSECTION';
 
 const Home = () => {
   return (
@@ -35,6 +36,7 @@ const Home = () => {
         </div>
       </section>
       <FeaturesSection />
+      <TemplateSECTION />
     </>
   );
 };
