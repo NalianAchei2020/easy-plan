@@ -31,7 +31,7 @@ const FeaturesSection = () => {
   return (
     <>
       <section className="bg-white py-8">
-        <div className="container mx-auto">
+        <div className="container mx-auto px-16">
           <h2 className="text-3xl font-bold text-center mb-8">KEY FEATURES</h2>
           <div className="flex flex-col space-y-4 md:space-y-0 md:space-x-4 md:flex-col">
             {features.map((feature, index) => (
