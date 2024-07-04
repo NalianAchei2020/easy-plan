@@ -31,7 +31,7 @@ const FeaturesSection = () => {
   return (
     <>
       <section className="bg-white py-8">
-        <div className="container mx-auto px-16">
+        <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8">KEY FEATURES</h2>
           <div className="flex flex-col space-y-4 md:space-y-0 md:space-x-4 md:flex-col">
             {features.map((feature, index) => (
@@ -44,7 +44,7 @@ const FeaturesSection = () => {
             ))}
           </div>
           <div className="text-center mt-8">
-            <button className="bg-blue-500 text-white px-6 py-2 rounded">
+            <button className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-black">
               Generate business plans
             </button>
           </div>
