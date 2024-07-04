@@ -2,7 +2,7 @@ const Signup = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-12">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-semibold text-center mb-4">
+        <h2 className="text-xl font-[500] text-center mb-4">
           Get started with EasyPlan
         </h2>
         <p className="text-center text-gray-600 mb-8">

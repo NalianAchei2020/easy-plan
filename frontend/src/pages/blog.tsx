@@ -1,7 +1,9 @@
+import BlogSearchSection from '../components/blogSearch';
+
 const Blog = () => {
   return (
     <div>
-      <h1>Blog</h1>
+      <BlogSearchSection />
     </div>
   );
 };
