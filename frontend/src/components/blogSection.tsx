@@ -26,18 +26,22 @@ const BlogSection = () => {
   return (
     <div>
       <div>
-        <h2>Small Business Blogs and Client Stories</h2>
+        <h2 className="font-bold text-center mt-12 text-xl">
+          Small Business Blogs and Client Stories
+        </h2>
       </div>
-      <div className="flex flex-row space-y-4 md:space-y-0 md:space-x-4 md:flex-row">
+      <div className="flex flex-row space-y-4 md:space-y-0 md:space-x-4 md:flex-row px-16 py-4">
         {blogs.map((blog, index) => (
           <>
             <div
-              className="flex flex-col md:flex-col bg-white shadow-lg rounded-lg p-4 mb-4 "
+              className="flex flex-col md:flex-col bg-white shadow-lg rounded-lg p-4 mb-4 w-1/3"
               key={index}
             >
               <img src={blog.image} alt={blog.title} className="w-full " />
               <div className="p-4">
-                <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
+                <h3 className="text-l font-medium mb-2 text-center">
+                  {blog.title}
+                </h3>
               </div>
             </div>
             <br />
