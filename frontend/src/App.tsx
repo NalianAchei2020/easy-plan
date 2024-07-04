@@ -8,6 +8,7 @@ import Helpcenter from './pages/helpcenter';
 import Template from './pages/template';
 import Features from './pages/Features';
 import Signup from './pages/signup';
+import Footer from './components/footer';
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
+        <div>
+          <Footer />
+        </div>
       </Router>
     </>
   );
