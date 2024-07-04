@@ -39,6 +39,28 @@ const Home = () => {
       <FeaturesSection />
       <TemplateSECTION />
       <BlogSection />
+      {/*Get started section */}
+      <div
+        className="flex flex-col items-center justify-center py-8 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('Group 62.png')",
+        }}
+      >
+        <div className="p-6 max-w-2xl text-center relative">
+          <div className="absolute top-0 left-0 w-16 h-16 bg-blue-500 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute top-0 right-0 w-16 h-16 bg-blue-500 rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
+          <h2 className="text-xl font-semibold mb-4">
+            Start Creating Your Business Plan Today
+          </h2>
+          <p className="text-gray-600 mb-6">
+            We are a leading business plan generator platform that helps
+            entrepreneurs and startups bring their ideas to life.
+          </p>
+          <button className="bg-black text-white px-4 py-2 rounded">
+            Get Started
+          </button>
+        </div>
+      </div>
     </>
   );
 };
