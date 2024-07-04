@@ -26,37 +26,41 @@ const blogs: BlogProps[] = [
 
 const BlogSection = () => {
   return (
-    <div>
+    <div className="container mx-auto">
       <div>
         <h2 className="font-bold text-center mt-12 text-xl">
           Small Business Blogs and Client Stories
         </h2>
       </div>
-      <Link to="/blog">
-        <div className="flex flex-row space-y-4 md:space-y-0 md:space-x-4 md:flex-row px-16 py-4">
+      <div className="justify-center px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4 py-8">
           {blogs.map((blog, index) => (
-            <>
-              <div
-                className="flex flex-col md:flex-col bg-white shadow-lg rounded-lg p-4 mb-4 w-1/3"
-                key={index}
-              >
-                <img src={blog.image} alt={blog.title} className="w-full " />
+            <div
+              className="bg-white shadow-lg rounded-lg overflow-hidden"
+              key={index}
+            >
+              <Link to="/blog">
+                <img
+                  src={blog.image}
+                  alt={blog.title}
+                  className="w-full h-48 object-cover"
+                />
                 <div className="p-4">
                   <h3 className="text-l font-medium mb-2 text-center">
                     {blog.title}
                   </h3>
                 </div>
-              </div>
-
-              <br />
-            </>
+              </Link>
+            </div>
           ))}
         </div>
-      </Link>
-      <div className="text-center my-8 ">
-        <button className="bg-blue-500 text-white px-6 py-2 rounded">
-          View all blog
-        </button>
+      </div>
+      <div className="text-center my-8">
+        <Link to="/blog">
+          <button className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-black">
+            View all blogs
+          </button>
+        </Link>
       </div>
     </div>
   );
