@@ -23,7 +23,7 @@ const Home = () => {
               Our web app simplifies the process of creating a business plan by
               providing ready-to-use templates and intuitive tools.
             </p>
-            <button className="mt-4 bg-blue-500 text-white px-6 py-2 rounded">
+            <button className="mt-4 bg-blue-500 text-white px-6 py-2 rounded hover:bg-black">
               Get Started for free
             </button>
           </div>
@@ -56,7 +56,7 @@ const Home = () => {
             We are a leading business plan generator platform that helps
             entrepreneurs and startups bring their ideas to life.
           </p>
-          <button className="bg-black text-white px-4 py-2 rounded">
+          <button className="bg-black text-white px-4 py-2 rounded hover:bg-[#1447FB]">
             Get Started
           </button>
         </div>
