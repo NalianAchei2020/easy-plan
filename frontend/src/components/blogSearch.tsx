@@ -3,7 +3,7 @@ import { FaSearch } from 'react-icons/fa';
 
 const BlogSearchSection: React.FC = () => {
   return (
-    <div className="w-full bg-white p-4 my-4 px-4 sm:px-6 lg:px-8">
+    <div className="w-full p-4 my-4 px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-center border rounded-lg overflow-hidden">
         <span className="px-3 text-gray-600">
           <FaSearch />
