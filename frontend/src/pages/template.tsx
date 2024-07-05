@@ -1,7 +1,12 @@
+import TemplateSECTION from '../components/templateSECTION';
+
 const Template = () => {
   return (
     <div>
-      <h1>Templates</h1>
+      <div>
+        <h1>Choose a template and customize it </h1>
+      </div>
+      <TemplateSECTION />
     </div>
   );
 };
