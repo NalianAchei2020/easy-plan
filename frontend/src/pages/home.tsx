@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import BlogSection from '../components/blogSection';
 import FeaturesSection from '../components/featureSection';
 import TemplateSECTION from '../components/templateSECTION';
@@ -38,7 +39,23 @@ const Home = () => {
       </section>
       <FeaturesSection />
       <TemplateSECTION />
-      <BlogSection />
+      {/*Blog section */}
+      <div>
+        <div>
+          <h2 className="font-bold text-center mt-12 text-xl">
+            Small Business Blogs and Client Stories
+          </h2>
+        </div>
+        <BlogSection />
+        <div className="text-center my-8">
+          <Link to="/blog">
+            <button className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-black">
+              View all blogs
+            </button>
+          </Link>
+        </div>
+      </div>
+
       {/*Get started section */}
       <div
         className="flex flex-col items-center justify-center py-8 bg-cover bg-center"
