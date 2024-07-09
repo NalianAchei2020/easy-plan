@@ -1,19 +1,21 @@
+import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/material/ExpandMoreIcon';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-const Helpcenter = () => {
+export default function AccordionExpandIcon() {
   return (
     <div>
-      <Accordion defaultExpanded>
+      <Accordion>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
+          expandIcon={<ArrowDownwardIcon />}
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography>Expanded by default</Typography>
+          <Typography>Accordion 1</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -24,11 +26,11 @@ const Helpcenter = () => {
       </Accordion>
       <Accordion>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
+          expandIcon={<ArrowDropDownIcon />}
           aria-controls="panel2-content"
           id="panel2-header"
         >
-          <Typography>Header</Typography>
+          <Typography>Accordion 2</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -39,6 +41,4 @@ const Helpcenter = () => {
       </Accordion>
     </div>
   );
-};
-
-export default Helpcenter;
+}
