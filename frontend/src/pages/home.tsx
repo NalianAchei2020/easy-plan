@@ -39,8 +39,8 @@ const Home = () => {
       </section>
       <FeaturesSection />
       {/* template section */}
-      <div className="flex flex-col px-16 bg-[#F5F5F5] py-8">
-        <div className="flex flex-col items-center px-20">
+      <div className="flex flex-col px-4 md:px-16 bg-[#F5F5F5] py-8">
+        <div className="flex flex-col items-center md:px-20 px-2">
           <h2 className="text-xl font-semibold mb-4 text-center">
             Pre-Made Templates
           </h2>
