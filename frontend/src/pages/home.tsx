@@ -41,7 +41,7 @@ const Home = () => {
       {/* template section */}
       <div className="flex flex-col px-4 md:px-16 bg-[#F5F5F5] py-8">
         <div className="flex flex-col items-center md:px-20 px-2">
-          <h2 className="text-xl font-semibold mb-4 text-center">
+          <h2 className="text-xl font-semibold text-center">
             Pre-Made Templates
           </h2>
           <p className="text-gray-600 mb-6 text-center">
