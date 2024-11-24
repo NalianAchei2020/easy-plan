@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 // Set up Multer storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');
+    cb(null, '..files');
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname}`);
@@ -26,9 +26,9 @@ const upload = multer({ storage });
 const uploadRouter = express.Router();
 
 // Define the upload route
-uploadRouter.post('/upload', upload.single('template'), uploadTemplate);
+uploadRouter.post('/upload', upload.single('file'), uploadTemplate);
 
 // Set up a static route to access uploaded files
-uploadRouter.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+uploadRouter.use('/uploads', express.static(path.join(__dirname, 'files')));
 
 export default uploadRouter;
