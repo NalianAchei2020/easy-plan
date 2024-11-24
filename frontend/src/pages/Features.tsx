@@ -19,7 +19,7 @@ const Features = () => {
     }
 
     const formData = new FormData();
-    formData.append('template', file);
+    formData.append('file', file);
 
     setLoading(true);
     setError('');
@@ -28,9 +28,21 @@ const Features = () => {
       await axios.post('http://localhost:5030/api/template/upload', formData);
       alert('Template uploaded successfully!');
     } catch (err) {
-      setError((err as any).message);
+      console.error(err); // Log the error for debugging
+      //setError(err.response?.data?.message || 'An error occurred');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handlesub = async (e: any) => {
+    e.preventDefault();
+    console.log('hello');
+    try {
+      const response = await axios.get('http://localhost:5030/');
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -38,17 +50,21 @@ const Features = () => {
     <div className="py-[5rem] px-8">
       <h1>Features</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form
+      //onSubmit={handleSubmit}
+      >
         <input
           type="file"
           onChange={handleFileChange}
           className="border-[1px] border-gray-400 p-2 outline-none mb-4"
+          accept="application/pdf"
         />
         <br />
         <button
           type="submit"
           disabled={loading}
           className="bg-blue-500 text-white py-4 px-2"
+          onClick={handlesub}
         >
           {loading ? 'Uploading...' : 'Upload Template'}
         </button>
