@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 // Define the schema for file uploads
 const fileUploadSchema = new mongoose.Schema({
-  filename: {
+  file: {
     type: String,
     required: true, // Ensure the filename is provided
   },
@@ -21,10 +21,6 @@ const fileUploadSchema = new mongoose.Schema({
   uploadDate: {
     type: Date,
     default: Date.now, // Automatically set the upload date
-  },
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Assuming you have a User model to reference
   },
 });
 

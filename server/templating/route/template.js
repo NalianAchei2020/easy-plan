@@ -1,7 +1,13 @@
+// route/template.js
 import express from 'express';
 import multer from 'multer';
 import path from 'path';
-import { uploadTemplate } from '../controllers/template.js';
+import { fileURLToPath } from 'url';
+import { uploadTemplate } from '../controller/template.js';
+
+// Get __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Set up Multer storage
 const storage = multer.diskStorage({
