@@ -25,7 +25,16 @@ const Features = () => {
     setError('');
 
     try {
-      await axios.post('http://localhost:5030/api/template/upload', formData);
+      await axios.post(
+        'http://localhost:3002/api/template/upload-file',
+        formData,
+        {
+          headers: {
+            Accept: 'application/json, text/plain, /',
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
       alert('Template uploaded successfully!');
     } catch (err) {
       console.error(err); // Log the error for debugging
@@ -39,7 +48,7 @@ const Features = () => {
     e.preventDefault();
     console.log('hello');
     try {
-      const response = await axios.get('http://localhost:5030/');
+      const response = await axios.get('http://localhost:3002/', {});
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -50,9 +59,7 @@ const Features = () => {
     <div className="py-[5rem] px-8">
       <h1>Features</h1>
 
-      <form
-      //onSubmit={handleSubmit}
-      >
+      <form onSubmit={handleSubmit}>
         <input
           type="file"
           onChange={handleFileChange}
@@ -64,7 +71,7 @@ const Features = () => {
           type="submit"
           disabled={loading}
           className="bg-blue-500 text-white py-4 px-2"
-          onClick={handlesub}
+          //onClick={handlesub}
         >
           {loading ? 'Uploading...' : 'Upload Template'}
         </button>
