@@ -8,20 +8,18 @@ import uploadRouter from './route/template.js';
 
 const app = express();
 
-const allowedOrigins = ['http://localhost:5173/'];
-const corsOptions = {
-  origin: allowedOrigins,
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-  optionsSuccessStatus: 204,
-};
-
-app.use(cors(corsOptions));
-
 // Middleware setup
-app.use(bodyParser.json()); // Ensure this is called as a function
+app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(express.json()); // Call express.json() as a function
+app.use(express.json());
+
+app.use(
+  cors({
+    origin: ['http://localhost:5173', '*'],
+    methods: ['POST', 'GET', 'DELETE', 'PUT', 'PATCH'],
+    credentials: true,
+  })
+);
 
 // Connect to the database
 connectDB();
