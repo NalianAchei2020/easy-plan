@@ -1,26 +1,16 @@
 import mongoose from 'mongoose';
+import config from '../templating/config.js';
 
 export const connectDB = async () => {
-  /*try {
-    await mongoose.connect(
-      'mongodb+srv://acheinaliannwanjoh:Gh6q3kG64BPZKays@cluster0.bee29.mongodb.net/',
-      {
-       
-        useUnifiedTopology: true,
-        serverSelectionTimeoutMS: 5000,
-      }
-    );
-    console.log('MongoDB connected');
-  } catch (error) {
-    console.log('Error connecting to MongoDB', error.message);
-  }*/
-
+  mongoose.set('strictQuery', false);
   mongoose
-    .connect(
-      'mongodb+srv://acheinaliannwanjoh:Gh6q3kG64BPZKays@cluster0.bee29.mongodb.net/'
-    )
+    .connect(config.mongoDB_URL, {
+      socketTimeoutMS: 45000,
+      connectTimeoutMS: 30000,
+    })
     .then(() => {
       console.log('Connected to MongoDB');
+      console.log('MongoDB URI:', config.mongoDB_URL);
     })
     .catch((error) => {
       console.log('Error connecting to MongoDB', error.message);

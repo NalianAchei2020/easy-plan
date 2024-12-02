@@ -4,4 +4,5 @@ dotenv.config();
 
 export default {
   PORT: process.env.PORT,
+  mongoDB_URL: process.env.mongoDB_URL,
 };

@@ -1,17 +1,19 @@
 import FileUpload from '../modules/template.js';
 
 export const uploadTemplate = async (req, res) => {
-  if (!req.file) {
+  const { file } = req.body;
+  if (file) {
     return res.status(400).send('No file uploaded.');
   }
 
-  const { filename, originalname, mimetype, size } = req.file;
+  console.log('File size:', req.file.size);
+
+ // const { filename, originalname, mimetype, size } = file;
 
   const fileUpload = new FileUpload({
-    filename,
-    originalname,
-    mimetype,
-    size,
+    originalname:file,
+    //mimetype,
+    //size,
   });
 
   try {
