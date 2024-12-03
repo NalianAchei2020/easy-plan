@@ -3,7 +3,7 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-import { uploadTemplate } from '../controller/template.js';
+import { getTemplates, uploadTemplate } from '../controller/template.js';
 
 // Get __dirname equivalent
 const __filename = fileURLToPath(import.meta.url);
@@ -36,5 +36,7 @@ uploadRouter.post('/upload-file', upload.single('file'), uploadTemplate);
 
 // Set up a static route to access uploaded files
 uploadRouter.use('/uploads', express.static(uploadDir));
+
+uploadRouter.get('/', getTemplates);
 
 export default uploadRouter;

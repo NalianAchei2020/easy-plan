@@ -1,16 +1,16 @@
+import { createError } from '../../Utils/error.js';
 import FileUpload from '../modules/template.js';
 
 export const uploadTemplate = async (req, res) => {
-  const { file } = req; // Access the uploaded file directly from req
+  const { file } = req;
 
-  // Check if the file is not uploaded
   if (!file) {
-    return res.status(400).send('No file uploaded.'); // Corrected error message
+    return res.status(400).send('No file uploaded.');
   }
 
   console.log('File size:', file.size);
 
-  const { filename, originalname, mimetype, size } = file; // Use properties from the file
+  const { filename, originalname, mimetype, size } = file;
 
   const fileUpload = new FileUpload({
     filename: filename,
@@ -20,13 +20,22 @@ export const uploadTemplate = async (req, res) => {
   });
 
   try {
-    await fileUpload.save(); // Save to the database
+    await fileUpload.save();
     res.status(200).send({
       message: 'Template uploaded successfully!',
       file: { filename, originalname, mimetype, size },
     });
   } catch (error) {
-    console.error('Database save error:', error.message);
     res.status(500).send('Error saving file information: ' + error.message);
+  }
+};
+
+export const getTemplates = async (req, res, next) => {
+  try {
+    const templates = await FileUpload.find();
+    if (!templates) return next(createError(404, 'No templates found'));
+    res.status(200).json(templates);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
