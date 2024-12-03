@@ -9,27 +9,31 @@ import Template from './pages/template';
 import Features from './pages/Features';
 import Signup from './pages/signup';
 import Footer from './components/footer';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 function App() {
   return (
     <>
-      <Router>
-        <div className="App">
-          <Header />
-        </div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/features" element={<Features />} />
-          <Route path="/templates" element={<Template />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/help-center" element={<Helpcenter />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-        </Routes>
-        <div>
-          <Footer />
-        </div>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <div className="App">
+            <Header />
+          </div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/templates" element={<Template />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/help-center" element={<Helpcenter />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+          <div>
+            <Footer />
+          </div>
+        </Router>
+      </Provider>
     </>
   );
 }

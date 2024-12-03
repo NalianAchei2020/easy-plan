@@ -2,13 +2,13 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { baseurl } from './baseurl';
 
-interface User {
+export interface User {
   name: string;
   email: string;
   password: string;
 }
 
-interface Data {
+export interface Data {
   loading: boolean;
   users: User[];
   error: string;

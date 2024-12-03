@@ -2,12 +2,12 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { baseurl } from './baseurl';
 
-interface Template {
+export interface Template {
   id: string;
   fileName: string;
 }
 
-interface Data {
+export interface Data {
   loading: boolean;
   error: string | null;
   templates: Template[];
