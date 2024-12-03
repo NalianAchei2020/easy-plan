@@ -1,23 +1,26 @@
 import FileUpload from '../modules/template.js';
 
 export const uploadTemplate = async (req, res) => {
-  const { file } = req.body;
-  if (file) {
-    return res.status(400).send('No file uploaded.');
+  const { file } = req; // Access the uploaded file directly from req
+
+  // Check if the file is not uploaded
+  if (!file) {
+    return res.status(400).send('No file uploaded.'); // Corrected error message
   }
 
-  console.log('File size:', req.file.size);
+  console.log('File size:', file.size);
 
- // const { filename, originalname, mimetype, size } = file;
+  const { filename, originalname, mimetype, size } = file; // Use properties from the file
 
   const fileUpload = new FileUpload({
-    originalname:file,
-    //mimetype,
-    //size,
+    filename: filename,
+    originalname: originalname,
+    mimetype: mimetype,
+    size: size,
   });
 
   try {
-    await fileUpload.save();
+    await fileUpload.save(); // Save to the database
     res.status(200).send({
       message: 'Template uploaded successfully!',
       file: { filename, originalname, mimetype, size },

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import config from '../Authentication_service/config.js';
+import config from '../config.js';
 
 export const connectDB = async () => {
   mongoose.set('strictQuery', false);

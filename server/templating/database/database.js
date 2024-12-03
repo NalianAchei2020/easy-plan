@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import config from '../Authentication_service/config.js';
+import config from '../config.js';
 
 export const connectDB = async () => {
   mongoose.set('strictQuery', false);
   mongoose
-    .connect(config.MONGOBD_URL, {
+    .connect(config.mongoDB_URL, {
       serverSelectionTimeoutMS: 50000,
       socketTimeoutMS: 60000,
       connectTimeoutMS: 60000,

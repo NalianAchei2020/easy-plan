@@ -1,4 +1,4 @@
-import jsonwebtoken from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { createError } from './error.js';
 import config from '../Authentication_service/config.js';
 
