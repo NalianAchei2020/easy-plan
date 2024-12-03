@@ -3,8 +3,8 @@ import axios from 'axios';
 import { baseurl } from './baseurl';
 
 export interface Template {
-  id: string;
-  fileName: string;
+  _id: string;
+  filename: string;
 }
 
 export interface Data {
