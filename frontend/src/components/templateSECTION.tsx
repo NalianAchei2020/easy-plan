@@ -36,7 +36,7 @@ const TemplateSECTION = () => {
         {templates.map((template) => (
           <div
             key={template._id}
-            className="w-25 h-42 p-[50px] bg-gray-500 border-2- border-red"
+            className="w-25 h-22 p-[50px] bg-gray-500 border-2- border-red"
           >
             <Document file={PDF} onLoadError={console.error}>
               <Page
