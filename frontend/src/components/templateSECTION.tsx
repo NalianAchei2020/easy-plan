@@ -31,12 +31,12 @@ const TemplateSECTION = () => {
   }
 
   return (
-    <div className="px-6 py-[50px]">
-      <div className="gap-4 mb-6">
+    <div className="px-4 py-4">
+      <div className="gap-2 mb-4 flex flex-wrap">
         {templates.map((template) => (
           <div
             key={template._id}
-            className="w-25 h-22 p-[50px] bg-gray-500 border-2- border-red"
+            className="w-20 h-24 p-2 bg-gray-500 border border-red-500"
           >
             <Document file={PDF} onLoadError={console.error}>
               <Page
