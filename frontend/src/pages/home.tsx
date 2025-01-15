@@ -110,21 +110,7 @@ const Home = () => {
       {/* Blog Section */}
       <section className="py-20 fade-in-section">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800">
-              Small Business Blogs and Client Stories
-            </h2>
-          </div>
           <BlogSection />
-          <div className="text-center mt-12">
-            <Link to="/blog">
-              <button className="group relative inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white bg-blue-600 rounded-xl overflow-hidden transition-all duration-300 ease-out hover:bg-blue-700">
-                <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-blue-600 to-blue-700"></span>
-                <span className="absolute bottom-0 right-0 block w-64 h-64 mb-32 mr-4 transition duration-500 origin-bottom-left transform rotate-45 translate-x-24 bg-blue-500 opacity-30 group-hover:rotate-90 ease"></span>
-                <span className="relative">View All Blogs</span>
-              </button>
-            </Link>
-          </div>
         </div>
       </section>
 
