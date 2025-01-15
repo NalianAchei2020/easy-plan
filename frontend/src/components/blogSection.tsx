@@ -127,7 +127,7 @@ const BlogSection = () => {
         >
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors duration-300"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-blue-500 hover:text-white transition-colors duration-300"
           >
             View all articles
             <ArrowRight className="w-4 h-4" />
