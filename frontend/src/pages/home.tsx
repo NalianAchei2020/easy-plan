@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import BlogSection from '../components/blogSection';
 import FeaturesSection from '../components/featureSection';
@@ -84,26 +83,7 @@ const Home = () => {
       <section className="relative py-20 overflow-hidden fade-in-section">
         <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white" />
         <div className="container mx-auto px-4 lg:px-8 relative">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800">
-              Pre-Made Templates
-            </h2>
-            <p className="text-gray-600 text-lg leading-relaxed">
-              Save time with our ready-to-use templates that cater to diverse
-              industries such as finance, technology, and more. Customize them
-              instantly to suit your needs and start editing right away.
-            </p>
-          </div>
           <TemplateSECTION />
-          <div className="text-center mt-12">
-            <Link to="/blog">
-              <button className="group relative inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white bg-blue-600 rounded-xl overflow-hidden transition-all duration-300 ease-out hover:bg-blue-700">
-                <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-blue-600 to-blue-700"></span>
-                <span className="absolute bottom-0 right-0 block w-64 h-64 mb-32 mr-4 transition duration-500 origin-bottom-left transform rotate-45 translate-x-24 bg-blue-500 opacity-30 group-hover:rotate-90 ease"></span>
-                <span className="relative">Browse Templates</span>
-              </button>
-            </Link>
-          </div>
         </div>
       </section>
 
