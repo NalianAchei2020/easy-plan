@@ -11,6 +11,7 @@ import Signup from './pages/signup';
 import Footer from './components/footer';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import BusinessPlanForm from './components/businessform/businessplanform';
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
             <Route path="/help-center" element={<Helpcenter />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="*" element={<div>404 Not Found</div>} />
+            <Route path="/plan" element={<BusinessPlanForm />} />
           </Routes>
           <div>
             <Footer />
