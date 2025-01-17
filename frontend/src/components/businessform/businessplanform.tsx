@@ -40,7 +40,7 @@ const BusinessPlanForm = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Progress Bar */}
         <div className="mb-8 px-4">
           <div className="flex items-center justify-between mb-2">
@@ -58,7 +58,7 @@ const BusinessPlanForm = () => {
 
         <div className="flex gap-6">
           {/* Steps Navigation */}
-          <div className="w-64 shrink-0">
+          <div className="w-64 shrink-0 bg-white rounded-xl shadow-sm ">
             <nav className="space-y-1">
               {steps.map((step) => (
                 <button
