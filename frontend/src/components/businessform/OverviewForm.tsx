@@ -1,15 +1,17 @@
 import React from 'react';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '../ui/select';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
-import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
-import { Button } from '../ui/button';
+  TextField,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  Radio,
+  FormControlLabel,
+  MenuItem,
+  Button,
+  Typography,
+  Grid,
+  Box,
+} from '@mui/material';
 
 interface OverviewFormProps {
   data: {
@@ -62,113 +64,112 @@ const OverviewForm: React.FC<OverviewFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
-      <div>
-        <h2 className="text-2xl font-semibold text-gray-900 mb-6">Overview</h2>
+    <form onSubmit={handleSubmit}>
+      <Box sx={{ mb: 4 }}>
+        <Typography variant="h4" component="h2" gutterBottom>
+          Overview
+        </Typography>
 
-        <div className="space-y-6">
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
           {/* Company Type */}
-          <div className="space-y-4">
-            <Label>Is this a startup or an existing company?</Label>
+          <FormControl>
+            <FormLabel>Is this a startup or an existing company?</FormLabel>
             <RadioGroup
+              row
               value={data.companyType}
-              onValueChange={(value: string) =>
-                onUpdate({ companyType: value })
-              }
-              className="flex gap-4"
+              onChange={(e) => onUpdate({ companyType: e.target.value })}
             >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="startup" id="startup" />
-                <Label htmlFor="startup">Startup</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="existing" id="existing" />
-                <Label htmlFor="existing">Existing</Label>
-              </div>
+              <FormControlLabel
+                value="startup"
+                control={<Radio />}
+                label="Startup"
+              />
+              <FormControlLabel
+                value="existing"
+                control={<Radio />}
+                label="Existing"
+              />
             </RadioGroup>
-          </div>
+          </FormControl>
 
           {/* Start Date */}
-          <div className="space-y-4">
-            <Label>Starting month and year of business</Label>
-            <div className="grid grid-cols-2 gap-4">
-              <Select
-                value={data.startMonth}
-                onValueChange={(value: string) =>
-                  onUpdate({ startMonth: value })
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Month" />
-                </SelectTrigger>
-                <SelectContent>
+          <FormControl>
+            <FormLabel sx={{ mb: 1 }}>
+              Starting month and year of business
+            </FormLabel>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <TextField
+                  select
+                  fullWidth
+                  value={data.startMonth}
+                  onChange={(e) => onUpdate({ startMonth: e.target.value })}
+                  label="Month"
+                >
                   {months.map((month) => (
-                    <SelectItem key={month} value={month.toLowerCase()}>
+                    <MenuItem key={month} value={month.toLowerCase()}>
                       {month}
-                    </SelectItem>
+                    </MenuItem>
                   ))}
-                </SelectContent>
-              </Select>
-
-              <Select
-                value={data.startYear}
-                onValueChange={(value: string) =>
-                  onUpdate({ startYear: value })
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Year" />
-                </SelectTrigger>
-                <SelectContent>
+                </TextField>
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  select
+                  fullWidth
+                  value={data.startYear}
+                  onChange={(e) => onUpdate({ startYear: e.target.value })}
+                  label="Year"
+                >
                   {years.map((year) => (
-                    <SelectItem key={year} value={year.toString()}>
+                    <MenuItem key={year} value={year.toString()}>
                       {year}
-                    </SelectItem>
+                    </MenuItem>
                   ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+                </TextField>
+              </Grid>
+            </Grid>
+          </FormControl>
 
           {/* Industry */}
-          <div className="space-y-4">
-            <Label>In what industry do you operate?</Label>
-            <Select
+          <FormControl>
+            <FormLabel sx={{ mb: 1 }}>
+              In what industry do you operate?
+            </FormLabel>
+            <TextField
+              select
+              fullWidth
               value={data.industry}
-              onValueChange={(value: string) => onUpdate({ industry: value })}
+              onChange={(e) => onUpdate({ industry: e.target.value })}
+              label="Select Industry"
             >
-              <SelectTrigger>
-                <SelectValue placeholder="Select Industry" />
-              </SelectTrigger>
-              <SelectContent>
-                {industries.map((industry) => (
-                  <SelectItem key={industry} value={industry.toLowerCase()}>
-                    {industry}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+              {industries.map((industry) => (
+                <MenuItem key={industry} value={industry.toLowerCase()}>
+                  {industry}
+                </MenuItem>
+              ))}
+            </TextField>
+          </FormControl>
 
           {/* Project Title */}
-          <div className="space-y-4">
-            <Label>Project Title</Label>
-            <Input
+          <FormControl>
+            <FormLabel sx={{ mb: 1 }}>Project Title</FormLabel>
+            <TextField
+              fullWidth
               value={data.projectTitle}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                onUpdate({ projectTitle: e.target.value })
-              }
+              onChange={(e) => onUpdate({ projectTitle: e.target.value })}
               placeholder="Enter your project title"
+              label="Project Title"
             />
-          </div>
-        </div>
-      </div>
+          </FormControl>
+        </Box>
+      </Box>
 
-      <div className="flex justify-end">
-        <Button type="submit" className="bg-blue-600 text-white">
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Button type="submit" variant="contained" color="primary" size="large">
           Next
         </Button>
-      </div>
+      </Box>
     </form>
   );
 };
