@@ -16,12 +16,14 @@ interface MarketingFormProps {
   };
   onUpdate: (data: Partial<MarketingFormProps['data']>) => void;
   onNext: () => void;
+  onPrev: () => void;
 }
 
 const MarketingForm: React.FC<MarketingFormProps> = ({
   data,
   onUpdate,
   onNext,
+  onPrev,
 }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -107,17 +109,35 @@ const MarketingForm: React.FC<MarketingFormProps> = ({
         </Box>
       </Box>
 
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+      {/* Next Button & previous button */}
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
         <Button
-          type="submit"
           variant="contained"
-          color="primary"
-          size="large"
+          onClick={onPrev}
           sx={{
-            minWidth: { xs: '100%', sm: 'auto' },
+            bgcolor: '#1976d2',
+            color: 'white',
+            px: 4,
+            '&:hover': {
+              bgcolor: '#1565c0',
+            },
           }}
         >
-          Next
+          PREV
+        </Button>
+        <Button
+          variant="contained"
+          onClick={onNext}
+          sx={{
+            bgcolor: '#1976d2',
+            color: 'white',
+            px: 4,
+            '&:hover': {
+              bgcolor: '#1565c0',
+            },
+          }}
+        >
+          NEXT
         </Button>
       </Box>
     </form>

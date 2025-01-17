@@ -21,12 +21,14 @@ interface ContributionsLoansFormProps {
   };
   onUpdate: (data: Partial<any>) => void;
   onNext: () => void;
+  onPrev: () => void;
 }
 
 const ContributionsLoansForm: React.FC<ContributionsLoansFormProps> = ({
   data,
   onUpdate,
   onNext,
+  onPrev,
 }) => {
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 10 }, (_, i) => currentYear + i);
@@ -141,17 +143,31 @@ const ContributionsLoansForm: React.FC<ContributionsLoansFormProps> = ({
           </FormControl>
         </Box>
 
-        {/* Next Button */}
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4 }}>
+        {/* Next Button & previous button */}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
+          <Button
+            variant="contained"
+            onClick={onPrev}
+            sx={{
+              bgcolor: '#1976d2',
+              color: 'white',
+              px: 4,
+              '&:hover': {
+                bgcolor: '#1565c0',
+              },
+            }}
+          >
+            PREV
+          </Button>
           <Button
             variant="contained"
             onClick={onNext}
             sx={{
-              bgcolor: 'primary.main',
+              bgcolor: '#1976d2',
               color: 'white',
               px: 4,
               '&:hover': {
-                bgcolor: 'primary.dark',
+                bgcolor: '#1565c0',
               },
             }}
           >

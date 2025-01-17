@@ -36,6 +36,7 @@ interface ProductServiceFormProps {
   };
   onUpdate: (data: Partial<{ products: ProductService[] }>) => void;
   onNext: () => void;
+  onPrev: () => void;
 }
 
 const currencies = [
@@ -69,6 +70,7 @@ const ProductServiceForm: React.FC<ProductServiceFormProps> = ({
   data,
   onUpdate,
   onNext,
+  onPrev,
 }) => {
   const handleAddProduct = () => {
     const products = data.products || [];
@@ -268,9 +270,35 @@ const ProductServiceForm: React.FC<ProductServiceFormProps> = ({
         </Box>
       </Box>
 
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button type="submit" variant="contained" color="primary" size="large">
-          Next
+      {/* Next Button & previous button */}
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
+        <Button
+          variant="contained"
+          onClick={onPrev}
+          sx={{
+            bgcolor: '#1976d2',
+            color: 'white',
+            px: 4,
+            '&:hover': {
+              bgcolor: '#1565c0',
+            },
+          }}
+        >
+          PREV
+        </Button>
+        <Button
+          variant="contained"
+          onClick={onNext}
+          sx={{
+            bgcolor: '#1976d2',
+            color: 'white',
+            px: 4,
+            '&:hover': {
+              bgcolor: '#1565c0',
+            },
+          }}
+        >
+          NEXT
         </Button>
       </Box>
     </form>

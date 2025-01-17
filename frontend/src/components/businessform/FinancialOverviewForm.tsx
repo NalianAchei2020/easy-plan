@@ -16,12 +16,14 @@ interface FinancialOverviewFormProps {
   };
   onUpdate: (data: Partial<any>) => void;
   onNext: () => void;
+  onPrev: () => void;
 }
 
 const FinancialOverviewForm: React.FC<FinancialOverviewFormProps> = ({
   data,
   onUpdate,
   onNext,
+  onPrev,
 }) => {
   const handleChange =
     (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -140,8 +142,22 @@ const FinancialOverviewForm: React.FC<FinancialOverviewFormProps> = ({
           </Grid>
         </Grid>
 
-        {/* Next Button */}
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4 }}>
+        {/* Next Button & previous button */}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
+          <Button
+            variant="contained"
+            onClick={onPrev}
+            sx={{
+              bgcolor: '#1976d2',
+              color: 'white',
+              px: 4,
+              '&:hover': {
+                bgcolor: '#1565c0',
+              },
+            }}
+          >
+            PREV
+          </Button>
           <Button
             variant="contained"
             onClick={onNext}

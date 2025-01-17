@@ -20,9 +20,15 @@ interface AssetsFormProps {
   };
   onUpdate: (data: Partial<any>) => void;
   onNext: () => void;
+  onPrev: () => void;
 }
 
-const AssetsForm: React.FC<AssetsFormProps> = ({ data, onUpdate, onNext }) => {
+const AssetsForm: React.FC<AssetsFormProps> = ({
+  data,
+  onUpdate,
+  onNext,
+  onPrev,
+}) => {
   const [assets, setAssets] = useState<Asset[]>(
     data.assets || [{ name: '', cost: '' }]
   );
@@ -118,8 +124,22 @@ const AssetsForm: React.FC<AssetsFormProps> = ({ data, onUpdate, onNext }) => {
           Add another asset
         </Button>
 
-        {/* Next Button */}
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4 }}>
+        {/* Next Button & previous button */}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
+          <Button
+            variant="contained"
+            onClick={onPrev}
+            sx={{
+              bgcolor: '#1976d2',
+              color: 'white',
+              px: 4,
+              '&:hover': {
+                bgcolor: '#1565c0',
+              },
+            }}
+          >
+            PREV
+          </Button>
           <Button
             variant="contained"
             onClick={onNext}

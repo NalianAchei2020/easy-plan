@@ -143,6 +143,15 @@ const BusinessPlanForm = () => {
     }
   };
 
+  const handlePrev = () => {
+    if (currentStepIndex < steps.length + 1) {
+      setCurrentStep(steps[currentStepIndex - 1].id);
+      if (isMobile) {
+        setMobileOpen(false);
+      }
+    }
+  };
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -293,6 +302,7 @@ const BusinessPlanForm = () => {
                 data={formData}
                 onUpdate={handleFormUpdate}
                 onNext={handleNext}
+                onPrev={handlePrev}
               />
             )}
             {currentStep === 'cover-page' && (
@@ -300,6 +310,7 @@ const BusinessPlanForm = () => {
                 data={formData}
                 onUpdate={handleFormUpdate}
                 onNext={handleNext}
+                onPrev={handlePrev}
               />
             )}
             {currentStep === 'company-info' && (
@@ -307,6 +318,7 @@ const BusinessPlanForm = () => {
                 data={formData}
                 onUpdate={handleFormUpdate}
                 onNext={handleNext}
+                onPrev={handlePrev}
               />
             )}
             {currentStep === 'product-service' && (
@@ -314,6 +326,7 @@ const BusinessPlanForm = () => {
                 data={formData}
                 onUpdate={handleFormUpdate}
                 onNext={handleNext}
+                onPrev={handlePrev}
               />
             )}
             {currentStep === 'marketing' && (
@@ -321,6 +334,7 @@ const BusinessPlanForm = () => {
                 data={formData}
                 onUpdate={handleFormUpdate}
                 onNext={handleNext}
+                onPrev={handlePrev}
               />
             )}
             {currentStep === 'target-customers' && (
@@ -328,6 +342,7 @@ const BusinessPlanForm = () => {
                 data={formData}
                 onUpdate={handleFormUpdate}
                 onNext={handleNext}
+                onPrev={handlePrev}
               />
             )}
             {currentStep === 'financial-overview' && (
@@ -335,6 +350,7 @@ const BusinessPlanForm = () => {
                 data={formData}
                 onUpdate={handleFormUpdate}
                 onNext={handleNext}
+                onPrev={handlePrev}
               />
             )}
             {currentStep === 'contributions' && (
@@ -342,6 +358,7 @@ const BusinessPlanForm = () => {
                 data={formData}
                 onUpdate={handleFormUpdate}
                 onNext={handleNext}
+                onPrev={handlePrev}
               />
             )}
             {currentStep === 'assets' && (
@@ -349,6 +366,7 @@ const BusinessPlanForm = () => {
                 data={formData}
                 onUpdate={handleFormUpdate}
                 onNext={handleNext}
+                onPrev={handlePrev}
               />
             )}
           </Paper>

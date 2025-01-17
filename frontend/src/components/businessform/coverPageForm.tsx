@@ -21,12 +21,14 @@ interface CoverPageFormProps {
   };
   onUpdate: (data: Partial<CoverPageFormProps['data']>) => void;
   onNext: () => void;
+  onPrev: () => void;
 }
 
 const CoverPageForm: React.FC<CoverPageFormProps> = ({
   data,
   onUpdate,
   onNext,
+  onPrev,
 }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -133,14 +135,35 @@ const CoverPageForm: React.FC<CoverPageFormProps> = ({
           </Grid>
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4 }}>
+        {/* Next Button & previous button */}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
           <Button
-            type="submit"
             variant="contained"
-            color="primary"
-            size="large"
+            onClick={onPrev}
+            sx={{
+              bgcolor: '#1976d2',
+              color: 'white',
+              px: 4,
+              '&:hover': {
+                bgcolor: '#1565c0',
+              },
+            }}
           >
-            Next
+            PREV
+          </Button>
+          <Button
+            variant="contained"
+            onClick={onNext}
+            sx={{
+              bgcolor: '#1976d2',
+              color: 'white',
+              px: 4,
+              '&:hover': {
+                bgcolor: '#1565c0',
+              },
+            }}
+          >
+            NEXT
           </Button>
         </Box>
       </form>
