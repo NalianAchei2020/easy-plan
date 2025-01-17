@@ -103,7 +103,7 @@ const BusinessPlanForm = () => {
 
         <Box sx={{ display: 'flex', gap: 3 }}>
           {/* Steps Navigation */}
-          <Paper sx={{ width: 240, flexShrink: 0 }}>
+          <Paper sx={{ width: 300, flexShrink: 0, paddingInline: '5px' }}>
             <List>
               {steps.map((step) => (
                 <ListItem key={step.id} disablePadding>
