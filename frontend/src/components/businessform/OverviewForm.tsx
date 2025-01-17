@@ -165,7 +165,9 @@ const OverviewForm: React.FC<OverviewFormProps> = ({
       </div>
 
       <div className="flex justify-end">
-        <Button type="submit">Next</Button>
+        <Button type="submit" className="bg-blue-600 text-white">
+          Next
+        </Button>
       </div>
     </form>
   );

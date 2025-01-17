@@ -58,7 +58,7 @@ const BusinessPlanForm = () => {
 
         <div className="flex gap-6">
           {/* Steps Navigation */}
-          <div className="w-64 shrink-0 bg-white rounded-xl shadow-sm ">
+          <div className="w-80 shrink-0 bg-white rounded-xl shadow-sm p-6 ">
             <nav className="space-y-1">
               {steps.map((step) => (
                 <button
