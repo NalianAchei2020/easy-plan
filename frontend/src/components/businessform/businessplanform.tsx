@@ -1,7 +1,20 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ChevronRight } from 'lucide-react';
-import { cn } from '../../lib/utils';
+import {
+  Container,
+  Box,
+  Button,
+  LinearProgress,
+  Typography,
+  Paper,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from '@mui/material';
 import OverviewForm from './OverviewForm';
+import CoverPageForm from './coverPageForm';
+import CompanyInfoForm from './CompanyInfoPage';
 
 const steps = [
   { id: 'overview', label: 'Overview', progress: 5 },
@@ -18,11 +31,30 @@ const steps = [
 const BusinessPlanForm = () => {
   const [currentStep, setCurrentStep] = useState(steps[0].id);
   const [formData, setFormData] = useState({
+    // Overview data
     companyType: '',
     startMonth: '',
     startYear: '',
     industry: '',
     projectTitle: '',
+    // Cover page data
+    companyName: '',
+    companyAddress: '',
+    email: '',
+    city: '',
+    phone: '',
+    country: '',
+    website: '',
+    ceoName: '',
+    // Company info data
+    legalInformation: '',
+    businessType: '',
+    problemSolving: '',
+    solutionDescription: '',
+    isOperating: '',
+    revenue: '',
+    cashBalance: '',
+    netProfit: '',
   });
 
   const currentStepIndex = steps.findIndex((step) => step.id === currentStep);
@@ -39,49 +71,67 @@ const BusinessPlanForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-6xl mx-auto">
+    <Box sx={{ bgcolor: 'grey.100', minHeight: '100vh', py: 4 }}>
+      <Container maxWidth="lg">
         {/* Progress Bar */}
-        <div className="mb-8 px-4">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-blue-600">
+        <Box sx={{ mb: 4, px: 2 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              mb: 1,
+            }}
+          >
+            <Typography variant="body2" color="primary">
               {progress}% Complete
-            </span>
-          </div>
-          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-blue-600 transition-all duration-300 ease-in-out"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-        </div>
+            </Typography>
+          </Box>
+          <LinearProgress
+            variant="determinate"
+            value={progress}
+            sx={{
+              height: 8,
+              borderRadius: 4,
+              bgcolor: 'grey.200',
+              '& .MuiLinearProgress-bar': {
+                borderRadius: 4,
+              },
+            }}
+          />
+        </Box>
 
-        <div className="flex gap-6">
+        <Box sx={{ display: 'flex', gap: 3 }}>
           {/* Steps Navigation */}
-          <div className="w-80 shrink-0 bg-white rounded-xl shadow-sm p-6 ">
-            <nav className="space-y-1">
+          <Paper sx={{ width: 240, flexShrink: 0 }}>
+            <List>
               {steps.map((step) => (
-                <button
-                  key={step.id}
-                  onClick={() => setCurrentStep(step.id)}
-                  className={cn(
-                    'w-full flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-colors',
-                    currentStep === step.id
-                      ? 'bg-blue-600 text-white'
-                      : 'text-gray-600 hover:bg-gray-100'
-                  )}
-                >
-                  <span className="flex-1 text-left">{step.label}</span>
-                  {currentStep === step.id && (
-                    <ChevronRight className="w-4 h-4" />
-                  )}
-                </button>
+                <ListItem key={step.id} disablePadding>
+                  <ListItemButton
+                    selected={currentStep === step.id}
+                    onClick={() => setCurrentStep(step.id)}
+                    sx={{
+                      borderRadius: 1,
+                      mb: 0.5,
+                      '&.Mui-selected': {
+                        bgcolor: 'primary.main',
+                        color: 'primary.contrastText',
+                        '&:hover': {
+                          bgcolor: 'primary.dark',
+                        },
+                      },
+                    }}
+                  >
+                    <ListItemText primary={step.label} />
+                    {currentStep === step.id && <ChevronRight />}
+                  </ListItemButton>
+                </ListItem>
               ))}
-            </nav>
-          </div>
+            </List>
+          </Paper>
 
           {/* Form Content */}
-          <div className="flex-1 bg-white rounded-xl shadow-sm p-6">
+          <Paper sx={{ flex: 1, p: 3 }}>
             {currentStep === 'overview' && (
               <OverviewForm
                 data={formData}
@@ -89,11 +139,25 @@ const BusinessPlanForm = () => {
                 onNext={handleNext}
               />
             )}
+            {currentStep === 'cover-page' && (
+              <CoverPageForm
+                data={formData}
+                onUpdate={handleFormUpdate}
+                onNext={handleNext}
+              />
+            )}
+            {currentStep === 'company-info' && (
+              <CompanyInfoForm
+                data={formData}
+                onUpdate={handleFormUpdate}
+                onNext={handleNext}
+              />
+            )}
             {/* Add other form steps here */}
-          </div>
-        </div>
-      </div>
-    </div>
+          </Paper>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 
