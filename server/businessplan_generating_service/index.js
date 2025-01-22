@@ -21,7 +21,7 @@ app.use(
 );
 
 // Connect to the database
-connectDB();
+//connectDB();
 
 // Root route
 app.get('/', (req, res) => {
@@ -33,16 +33,48 @@ app.post('/completions', async (req, res) => {
   const options = {
     method: 'POST',
     headers: {
-      Authorization: `Bearer`,
+      Authorization: `Bearer ${config.OPENAI_API}`,
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify({
+      model: 'gpt-3.5-turbo', // Ensure this is a valid model
+      messages: [
+        {
+          role: 'user',
+          content: 'How are you?', //req.body.message,
+        },
+      ],
+      max_tokens: 100,
+    }),
   };
+
   try {
-    fetch('https://api.openai.com/v1/chat/completions', options);
+    const response = await fetch(
+      'https://api.openai.com/v1/chat/completions',
+      options
+    );
+    const data = await response.json();
+
+    if (response.ok) {
+      res.status(200).send(data);
+    } else {
+      // Handle API errors, including insufficient quota
+      if (data.error && data.error.code === 'insufficient_quota') {
+        res
+          .status(429)
+          .send(
+            'Quota exceeded. Please upgrade your plan or check your usage.'
+          );
+      } else {
+        res.status(response.status).send(data);
+      }
+    }
   } catch (error) {
-    console.error(error);
+    console.error('Fetch error:', error);
+    res.status(500).send('Server error');
   }
 });
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
