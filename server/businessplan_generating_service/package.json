@@ -1,0 +1,12 @@
+{
+  "name": "businessplan_generating_service",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Nalian Achei",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  }
+}
