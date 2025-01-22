@@ -1,12 +1,22 @@
 {
+  "type":"module",
   "name": "businessplan_generating_service",
   "version": "1.0.0",
   "description": "",
   "license": "ISC",
   "author": "Nalian Achei",
-  "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "start":"nodemon index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5",
+    "nodemon": "^3.1.9",
+    "openai": "^4.79.4"
   }
 }
