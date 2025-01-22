@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import config from './config.js';
 import { connectDB } from './database/database.js';
+import OpenAI from 'openai';
 
 const app = express();
 
@@ -29,7 +30,7 @@ app.get('/', (req, res) => {
 });
 
 // Auth routes
-app.post('/completions', async (req, res) => {
+/*app.post('/completions', async (req, res) => {
   const options = {
     method: 'POST',
     headers: {
@@ -73,6 +74,67 @@ app.post('/completions', async (req, res) => {
     console.error('Fetch error:', error);
     res.status(500).send('Server error');
   }
+});*/
+
+const client = new OpenAI({
+  baseURL: 'https://api-inference.huggingface.co/v1/',
+  apiKey: 'hf_***', // Replace with your actual Hugging Face API key
+});
+
+app.post('/completions', async (req, res) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${client.apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'google/gemma-2-2b-it',
+      messages: [
+        {
+          role: 'user',
+          content: req.body.message || 'What is the capital of France?', // Use the message from the request body
+        },
+      ],
+      max_tokens: 500,
+      stream: true,
+    }),
+  };
+
+  let out = '';
+
+  try {
+    const stream = await fetch(
+      'https://api-inference.huggingface.co/v1/chat/completions',
+      options
+    );
+
+    if (!stream.ok) {
+      const errorData = await stream.json();
+      return res.status(stream.status).send(errorData); // Send the error response back
+    }
+
+    // Stream response
+    const chunks = [];
+    for await (const chunk of stream.body) {
+      const newContent = chunk.choices[0]?.delta?.content;
+      if (newContent) {
+        out += newContent;
+        console.log(newContent); // Log the new content
+      }
+    }
+
+    res.status(200).send({ response: out }); // Send the final output back to the client
+  } catch (error) {
+    console.error('Fetch error:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+// Start your server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 // Error handling middleware
