@@ -1,5 +1,6 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import config from './config.js';
 import { connectDB } from './database/database.js';
 import authRouter from './routes/auth.js';
