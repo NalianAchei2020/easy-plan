@@ -164,6 +164,32 @@ const OverviewForm: React.FC<OverviewFormProps> = ({
               label="Project Title"
             />
           </FormControl>
+          <FormControl fullWidth>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <FormControlLabel></FormControlLabel>
+                <TextField
+                  fullWidth
+                  //value={data.mission} // Assuming the state has a mission field
+                  //onChange={(e) => onUpdate({ mission: e.target.value })}
+                  placeholder="Enter your mission"
+                  label="Mission"
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel sx={{ mb: 1 }} control={<span />} />
+                <TextField
+                  fullWidth
+                  //  value={data.vision} // Assuming the state has a vision field
+                  //onChange={(e) => onUpdate({ vision: e.target.value })}
+                  placeholder="Enter your vision"
+                  label="Vision"
+                  variant="outlined"
+                />
+              </Grid>
+            </Grid>
+          </FormControl>
         </Box>
       </Box>
 
