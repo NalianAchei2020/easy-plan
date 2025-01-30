@@ -167,7 +167,7 @@ const OverviewForm: React.FC<OverviewFormProps> = ({
           <FormControl fullWidth>
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <FormControlLabel></FormControlLabel>
+                <p>Mission</p>
                 <TextField
                   fullWidth
                   //value={data.mission} // Assuming the state has a mission field
@@ -178,7 +178,7 @@ const OverviewForm: React.FC<OverviewFormProps> = ({
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel sx={{ mb: 1 }} control={<span />} />
+                <p>Vision</p>
                 <TextField
                   fullWidth
                   //  value={data.vision} // Assuming the state has a vision field
