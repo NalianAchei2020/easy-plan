@@ -1,0 +1,232 @@
+import React from 'react';
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  FormControl,
+  FormLabel,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+  Collapse,
+} from '@mui/material';
+import { HelpCircle } from 'lucide-react';
+
+interface TargetCustomersFormProps {
+  data: {
+    targetCustomers: {
+      education: boolean;
+      income: boolean;
+      familySize: boolean;
+      language: boolean;
+      activities: boolean;
+      maritalStatus: boolean;
+      gender: boolean;
+      location: boolean;
+      occupation: boolean;
+      age: boolean;
+      population: boolean;
+      other: boolean;
+    };
+    customerDetails: {
+      education: string;
+      income: string;
+      familySize: string;
+      language: string;
+      activities: string;
+      maritalStatus: string;
+      gender: string;
+      location: string;
+      occupation: string;
+      age: string;
+      population: string;
+      other: string;
+    };
+  };
+  onUpdate: (data: Partial<TargetCustomersFormProps['data']>) => void;
+  onNext: () => void;
+  onPrev: () => void;
+}
+
+const TargetCustomersForm: React.FC<TargetCustomersFormProps> = ({
+  data,
+  onUpdate,
+  onNext,
+  onPrev,
+}) => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onNext();
+  };
+
+  const handleCheckboxChange = (field: keyof typeof data.targetCustomers) => {
+    onUpdate({
+      targetCustomers: {
+        ...data.targetCustomers,
+        [field]: !data.targetCustomers?.[field],
+      },
+    });
+  };
+
+  const handleDetailsChange = (
+    field: keyof typeof data.customerDetails,
+    value: string
+  ) => {
+    onUpdate({
+      customerDetails: {
+        ...data.customerDetails,
+        [field]: value,
+      },
+    });
+  };
+
+  const renderCheckboxWithDetails = (item: {
+    label: string;
+    value: string;
+  }) => (
+    <Box key={item.value}>
+      <FormControlLabel
+        control={
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Checkbox
+              checked={
+                data.targetCustomers?.[
+                  item.value as keyof typeof data.targetCustomers
+                ] || false
+              }
+              onChange={() =>
+                handleCheckboxChange(
+                  item.value as keyof typeof data.targetCustomers
+                )
+              }
+            />
+            <HelpCircle size={16} style={{ marginLeft: 4, color: '#666' }} />
+          </Box>
+        }
+        label={item.label}
+      />
+      <Collapse
+        in={
+          data.targetCustomers?.[
+            item.value as keyof typeof data.targetCustomers
+          ]
+        }
+      >
+        <Box sx={{ mt: 1, mb: 2, pl: 4 }}>
+          <TextField
+            fullWidth
+            label={`${item.label} Details`}
+            value={
+              data.customerDetails?.[
+                item.value as keyof typeof data.customerDetails
+              ] || ''
+            }
+            onChange={(e) =>
+              handleDetailsChange(
+                item.value as keyof typeof data.customerDetails,
+                e.target.value
+              )
+            }
+            placeholder={`Enter ${item.label.toLowerCase()} details`}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                backgroundColor: 'white',
+              },
+            }}
+          />
+        </Box>
+      </Collapse>
+    </Box>
+  );
+
+  const leftColumnItems = [
+    { label: 'Education', value: 'education' },
+    { label: 'Income', value: 'income' },
+    { label: 'Family Size', value: 'familySize' },
+    { label: 'Language', value: 'language' },
+    { label: 'Activities', value: 'activities' },
+    { label: 'Marital Status', value: 'maritalStatus' },
+  ];
+
+  const rightColumnItems = [
+    { label: 'Gender', value: 'gender' },
+    { label: 'Location', value: 'location' },
+    { label: 'Occupation', value: 'occupation' },
+    { label: 'Age', value: 'age' },
+    { label: 'Population', value: 'population' },
+    { label: 'Other', value: 'other' },
+  ];
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <Box sx={{ mb: 4 }}>
+        <Typography variant="h4" component="h2" gutterBottom>
+          Target Customers
+        </Typography>
+
+        <Box sx={{ mb: 4 }}>
+          <FormControl component="fieldset" fullWidth>
+            <FormLabel component="legend" sx={{ mb: 2 }}>
+              Who are your target customers?
+            </FormLabel>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Check the box that represents the category of your target
+              customers and briefly explain their characteristics.
+            </Typography>
+
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+                gap: 2,
+              }}
+            >
+              <FormGroup>
+                {leftColumnItems.map(renderCheckboxWithDetails)}
+              </FormGroup>
+
+              <FormGroup>
+                {rightColumnItems.map(renderCheckboxWithDetails)}
+              </FormGroup>
+            </Box>
+          </FormControl>
+        </Box>
+      </Box>
+
+      {/* Next Button & previous button */}
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
+        <Button
+          variant="contained"
+          onClick={onPrev}
+          sx={{
+            bgcolor: '#1976d2',
+            color: 'white',
+            px: 4,
+            '&:hover': {
+              bgcolor: '#1565c0',
+            },
+          }}
+        >
+          PREV
+        </Button>
+        <Button
+          variant="contained"
+          onClick={onNext}
+          sx={{
+            bgcolor: '#1976d2',
+            color: 'white',
+            px: 4,
+            '&:hover': {
+              bgcolor: '#1565c0',
+            },
+          }}
+        >
+          NEXT
+        </Button>
+      </Box>
+    </form>
+  );
+};
+
+export default TargetCustomersForm;
