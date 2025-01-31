@@ -47,6 +47,9 @@ const initialFormData = {
   startYear: '',
   industry: '',
   projectTitle: '',
+  mission: '',
+  vision: '',
+
   // Cover page data
   companyName: '',
   companyAddress: '',

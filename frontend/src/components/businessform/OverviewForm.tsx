@@ -20,6 +20,8 @@ interface OverviewFormProps {
     startYear: string;
     industry: string;
     projectTitle: string;
+    mission: string;
+    vision: string;
   };
   onUpdate: (data: Partial<OverviewFormProps['data']>) => void;
   onNext: () => void;
@@ -164,25 +166,30 @@ const OverviewForm: React.FC<OverviewFormProps> = ({
               label="Project Title"
             />
           </FormControl>
-          <FormControl fullWidth>
+          <FormControl>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <p>Mission</p>
+              <Grid item xs={6}>
+                <FormLabel sx={{ mb: 1 }}>Mission</FormLabel>
+
                 <TextField
                   fullWidth
-                  //value={data.mission} // Assuming the state has a mission field
-                  //onChange={(e) => onUpdate({ mission: e.target.value })}
+                  multiline
+                  rows={4}
+                  value={data.mission} // Assuming the state has a mission field
+                  onChange={(e) => onUpdate({ mission: e.target.value })}
                   placeholder="Enter your mission"
                   label="Mission"
                   variant="outlined"
                 />
               </Grid>
-              <Grid item xs={12}>
-                <p>Vision</p>
+              <Grid item xs={6}>
+                <FormLabel sx={{ mb: 1 }}>Vission</FormLabel>
                 <TextField
                   fullWidth
-                  //  value={data.vision} // Assuming the state has a vision field
-                  //onChange={(e) => onUpdate({ vision: e.target.value })}
+                  multiline
+                  rows={4}
+                  value={data.vision} // Assuming the state has a vision field
+                  onChange={(e) => onUpdate({ vision: e.target.value })}
                   placeholder="Enter your vision"
                   label="Vision"
                   variant="outlined"
