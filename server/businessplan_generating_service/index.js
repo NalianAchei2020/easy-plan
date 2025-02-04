@@ -39,15 +39,15 @@ app.post('/completions', async (req, res) => {
     const { prompt } = req.body;
 
     const response = await openai.chat.completions.create({
-      model: 'deepseek-chat',
+      model: 'deepseek-ai/DeepSeek-V3',
       messages: [
         {
           role: 'user',
-          content:
-            'Write a well detailed business plan for resturant business. It should contain financial tables and pictures of financial chart',
+          content: '"What is the capital of France?',
         },
       ],
-      max_tokens: 5000,
+      provider: 'together',
+      max_tokens: 500,
     });
 
     res.send(response.choices[0].message.content);
