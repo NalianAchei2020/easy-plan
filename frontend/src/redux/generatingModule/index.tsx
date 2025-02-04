@@ -10,6 +10,8 @@ export interface FormData {
   startYear: string;
   industry: string;
   projectTitle: string;
+  mission: string;
+  vision: string;
 
   // Cover page data
   companyName: string;
