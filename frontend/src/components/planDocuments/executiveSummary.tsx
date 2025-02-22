@@ -11,10 +11,6 @@ const ExecutiveSummary: React.FC<Props> = ({ data }) => {
   const [summary, setSummary] = useState('');
 
   const generateSummary = async () => {
-    if (!data.products || data.products.length === 0) {
-      console.error('No products available');
-      return;
-    }
     const promptParams = {
       comName: data.companyName,
       productService: data.products[0]?.name,
