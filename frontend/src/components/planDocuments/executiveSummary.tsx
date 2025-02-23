@@ -14,7 +14,7 @@ const ExecutiveSummary: React.FC<Props> = ({ data }) => {
     const promptParams = {
       comName: data.companyName,
       productService: data.products[0]?.name,
-      targetCustomers: JSON.stringify(data.targetCustomers), // Convert to string if needed
+      targetCustomers: JSON.stringify(data.customerDetails), // Convert to string if needed
       city: data.city,
       objective: data.objective,
       expectedRevenueYr1: parseFloat(data.products[0].revenueExpected.yearOne), // Ensure this is a number
