@@ -1,20 +1,64 @@
 import React from 'react';
 import { BusinessPlanData } from './types';
 import { BarChart3 } from 'lucide-react';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from 'recharts';
 
 interface Props {
   data: BusinessPlanData;
 }
 
 const SalesForecast: React.FC<Props> = ({ data }) => {
+  // Prepare data for the chart
+  const chartData = [
+    {
+      year: 'Year 1',
+      revenue: data.products.reduce(
+        (total, product) => total + parseInt(product.revenueExpected.yearOne),
+        0
+      ),
+    },
+    {
+      year: 'Year 2',
+      revenue: data.products.reduce(
+        (total, product) => total + parseInt(product.revenueExpected.yearTwo),
+        0
+      ),
+    },
+    {
+      year: 'Year 3',
+      revenue: data.products.reduce(
+        (total, product) => total + parseInt(product.revenueExpected.yearThree),
+        0
+      ),
+    },
+  ];
+
   return (
     <div className="min-h-screen p-8 border-b">
       <h2 className="text-3xl font-bold mb-8 text-blue-600">Sales Forecast</h2>
 
-      <div className="bg-white rounded-lg shadow-lg p-6">
+      <div className="bg-white">
         <div className="flex items-center gap-4 mb-8">
           <BarChart3 className="w-8 h-8 text-blue-600" />
           <h3 className="text-2xl font-semibold">3-Year Sales Projection</h3>
+        </div>
+        <div className="bg-white mb-5">
+          <BarChart width={800} height={400} data={chartData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="year" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="revenue" fill="#0088FE" />
+          </BarChart>
         </div>
 
         <div className="overflow-x-auto">
