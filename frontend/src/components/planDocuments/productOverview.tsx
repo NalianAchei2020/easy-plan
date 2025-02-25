@@ -1,6 +1,66 @@
 import React from 'react';
 import { BusinessPlanData } from './types';
-import { Package } from 'lucide-react';
+import {
+  Box,
+  Container,
+  Typography,
+  Paper,
+  Grid,
+  ThemeProvider,
+  createTheme,
+  Divider,
+  alpha,
+  LinearProgress,
+} from '@mui/material';
+import { Package, DollarSign, TrendingUp, BarChart3 } from 'lucide-react';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#2563eb',
+      light: alpha('#2563eb', 0.1),
+    },
+    secondary: {
+      main: '#7c3aed',
+    },
+    success: {
+      main: '#22c55e',
+      light: alpha('#22c55e', 0.1),
+    },
+  },
+  typography: {
+    fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
+    h1: {
+      fontSize: '2.5rem',
+      fontWeight: 700,
+      color: '#2563eb',
+    },
+    h2: {
+      fontSize: '1.75rem',
+      fontWeight: 600,
+      marginBottom: '1.5rem',
+    },
+    h3: {
+      fontSize: '1.25rem',
+      fontWeight: 600,
+      marginBottom: '1rem',
+    },
+    body1: {
+      lineHeight: 1.7,
+      color: '#374151',
+    },
+  },
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+          padding: 24,
+        },
+      },
+    },
+  },
+});
 
 interface Props {
   data: BusinessPlanData;
@@ -15,96 +75,239 @@ const ProductOverview: React.FC<Props> = ({ data }) => {
   };
 
   return (
-    <div className="min-h-screen p-8 border-b">
-      <h2 className="text-3xl font-bold mb-8 text-blue-600">
-        Product Overview
-      </h2>
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          minHeight: '100vh',
+          backgroundColor: '#f8fafc',
+          py: 8,
+        }}
+      >
+        <Container maxWidth="lg">
+          <Paper
+            elevation={3}
+            sx={{
+              position: 'relative',
+              overflow: 'hidden',
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '4px',
+                background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+              },
+            }}
+          >
+            <Box sx={{ mb: 6 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                <Package size={32} color={theme.palette.primary.main} />
+                <Typography variant="h1" sx={{ ml: 2 }}>
+                  Product Overview
+                </Typography>
+              </Box>
+            </Box>
 
-      {data.products.map((product, index) => (
-        <div key={index} className="bg-white rounded-lg shadow-lg p-6 mb-8">
-          <div className="flex items-center gap-4 mb-6">
-            <Package className="w-8 h-8 text-blue-600" />
-            <h3 className="text-2xl font-semibold">{product.name}</h3>
-          </div>
+            {data.products.map((product, index) => (
+              <Box key={index} sx={{ mb: 8 }}>
+                <Paper
+                  elevation={2}
+                  sx={{
+                    backgroundColor: theme.palette.primary.light,
+                    mb: 4,
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                    <Package size={24} color={theme.palette.primary.main} />
+                    <Typography
+                      variant="h2"
+                      sx={{ ml: 2, mb: 0, color: theme.palette.primary.main }}
+                    >
+                      {product.name}
+                    </Typography>
+                  </Box>
+                </Paper>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Cost of Goods</h4>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Year 1:</span>
-                  <span className="font-medium">
-                    ${parseInt(product.costOfGoods.yearOne).toLocaleString()}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Year 2:</span>
-                  <span className="font-medium">
-                    ${parseInt(product.costOfGoods.yearTwo).toLocaleString()}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Year 3:</span>
-                  <span className="font-medium">
-                    ${parseInt(product.costOfGoods.yearThree).toLocaleString()}
-                  </span>
-                </div>
-              </div>
-            </div>
+                <Grid container spacing={4}>
+                  <Grid item xs={12} md={6}>
+                    <Paper>
+                      <Box
+                        sx={{ display: 'flex', alignItems: 'center', mb: 3 }}
+                      >
+                        <DollarSign
+                          size={24}
+                          color={theme.palette.error.main}
+                        />
+                        <Typography
+                          variant="h3"
+                          color="error"
+                          sx={{ ml: 2, mb: 0 }}
+                        >
+                          Cost of Goods
+                        </Typography>
+                      </Box>
+                      {[1, 2, 3].map((year) => {
+                        const yearKey = getYearKey(year);
+                        return (
+                          <Box key={year} sx={{ mb: 2 }}>
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                mb: 1,
+                              }}
+                            >
+                              <Typography color="text.secondary">
+                                Year {year}:
+                              </Typography>
+                              <Typography variant="h6">
+                                $
+                                {parseInt(
+                                  product.costOfGoods[yearKey]
+                                ).toLocaleString()}
+                              </Typography>
+                            </Box>
+                            <LinearProgress
+                              variant="determinate"
+                              value={(year / 3) * 100}
+                              color="error"
+                              sx={{ height: 6, borderRadius: 3 }}
+                            />
+                          </Box>
+                        );
+                      })}
+                    </Paper>
+                  </Grid>
 
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Expected Revenue</h4>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Year 1:</span>
-                  <span className="font-medium text-green-600">
-                    $
-                    {parseInt(product.revenueExpected.yearOne).toLocaleString()}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Year 2:</span>
-                  <span className="font-medium text-green-600">
-                    $
-                    {parseInt(product.revenueExpected.yearTwo).toLocaleString()}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Year 3:</span>
-                  <span className="font-medium text-green-600">
-                    $
-                    {parseInt(
-                      product.revenueExpected.yearThree
-                    ).toLocaleString()}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+                  <Grid item xs={12} md={6}>
+                    <Paper>
+                      <Box
+                        sx={{ display: 'flex', alignItems: 'center', mb: 3 }}
+                      >
+                        <TrendingUp
+                          size={24}
+                          color={theme.palette.success.main}
+                        />
+                        <Typography
+                          variant="h3"
+                          color="success.main"
+                          sx={{ ml: 2, mb: 0 }}
+                        >
+                          Expected Revenue
+                        </Typography>
+                      </Box>
+                      {[1, 2, 3].map((year) => {
+                        const yearKey = getYearKey(year);
+                        return (
+                          <Box key={year} sx={{ mb: 2 }}>
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                mb: 1,
+                              }}
+                            >
+                              <Typography color="text.secondary">
+                                Year {year}:
+                              </Typography>
+                              <Typography variant="h6" color="success.main">
+                                $
+                                {parseInt(
+                                  product.revenueExpected[yearKey]
+                                ).toLocaleString()}
+                              </Typography>
+                            </Box>
+                            <LinearProgress
+                              variant="determinate"
+                              value={(year / 3) * 100}
+                              color="success"
+                              sx={{ height: 6, borderRadius: 3 }}
+                            />
+                          </Box>
+                        );
+                      })}
+                    </Paper>
+                  </Grid>
+                </Grid>
 
-          <div className="mt-8">
-            <h4 className="text-lg font-semibold mb-4">Profit Margins</h4>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {[1, 2, 3].map((year) => {
-                const yearKey = getYearKey(year);
-                const cost = parseInt(product.costOfGoods[yearKey]);
-                const revenue = parseInt(product.revenueExpected[yearKey]);
-                const margin = (((revenue - cost) / revenue) * 100).toFixed(1);
+                <Box sx={{ mt: 4 }}>
+                  <Paper>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                      <BarChart3 size={24} color={theme.palette.primary.main} />
+                      <Typography variant="h3" sx={{ ml: 2, mb: 0 }}>
+                        Profit Margins
+                      </Typography>
+                    </Box>
+                    <Grid container spacing={3}>
+                      {[1, 2, 3].map((year) => {
+                        const yearKey = getYearKey(year);
+                        const cost = parseInt(product.costOfGoods[yearKey]);
+                        const revenue = parseInt(
+                          product.revenueExpected[yearKey]
+                        );
+                        const margin = (
+                          ((revenue - cost) / revenue) *
+                          100
+                        ).toFixed(1);
+                        const progress = parseFloat(margin);
 
-                return (
-                  <div key={year} className="bg-gray-50 p-4 rounded-lg">
-                    <p className="text-sm text-gray-600">Year {year} Margin</p>
-                    <p className="text-2xl font-bold text-blue-600">
-                      {margin}%
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
+                        return (
+                          <Grid item xs={12} md={4} key={year}>
+                            <Paper
+                              sx={{
+                                backgroundColor: theme.palette.primary.light,
+                                textAlign: 'center',
+                                transition: 'transform 0.2s',
+                                '&:hover': {
+                                  transform: 'translateY(-4px)',
+                                },
+                              }}
+                            >
+                              <Typography
+                                variant="subtitle1"
+                                color="text.secondary"
+                                gutterBottom
+                              >
+                                Year {year} Margin
+                              </Typography>
+                              <Typography
+                                variant="h2"
+                                sx={{
+                                  color: theme.palette.primary.main,
+                                  mb: 2,
+                                }}
+                              >
+                                {margin}%
+                              </Typography>
+                              <LinearProgress
+                                variant="determinate"
+                                value={progress}
+                                sx={{
+                                  height: 8,
+                                  borderRadius: 4,
+                                  backgroundColor: alpha(
+                                    theme.palette.primary.main,
+                                    0.1
+                                  ),
+                                  '& .MuiLinearProgress-bar': {
+                                    borderRadius: 4,
+                                  },
+                                }}
+                              />
+                            </Paper>
+                          </Grid>
+                        );
+                      })}
+                    </Grid>
+                  </Paper>
+                </Box>
+              </Box>
+            ))}
+          </Paper>
+        </Container>
+      </Box>
+    </ThemeProvider>
   );
 };
 

@@ -1,253 +1,560 @@
 import React from 'react';
 import { BusinessPlanData } from './types';
 import { DollarSign, PiggyBank, TrendingUp, Wallet } from 'lucide-react';
+import {
+  Box,
+  Container,
+  Typography,
+  Paper,
+  Grid,
+  ThemeProvider,
+  createTheme,
+  alpha,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Card,
+  CardContent,
+  LinearProgress,
+} from '@mui/material';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#2563eb',
+      light: alpha('#2563eb', 0.1),
+    },
+    secondary: {
+      main: '#7c3aed',
+    },
+    success: {
+      main: '#22c55e',
+      light: alpha('#22c55e', 0.1),
+    },
+    error: {
+      main: '#ef4444',
+      light: alpha('#ef4444', 0.1),
+    },
+  },
+  typography: {
+    fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
+    h1: {
+      fontSize: '2.5rem',
+      fontWeight: 700,
+      color: '#2563eb',
+    },
+    h2: {
+      fontSize: '1.75rem',
+      fontWeight: 600,
+      marginBottom: '1.5rem',
+    },
+    h3: {
+      fontSize: '1.25rem',
+      fontWeight: 600,
+      marginBottom: '1rem',
+    },
+    body1: {
+      lineHeight: 1.7,
+      color: '#374151',
+    },
+  },
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+          padding: 24,
+        },
+      },
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        head: {
+          fontWeight: 600,
+          backgroundColor: alpha('#2563eb', 0.05),
+        },
+      },
+    },
+  },
+});
 
 interface Props {
   data: BusinessPlanData;
 }
 
+type YearKey = 'yearOne' | 'yearTwo' | 'yearThree';
+
 const FinancialOverview: React.FC<Props> = ({ data }) => {
+  const getYearKey = (year: number): YearKey => {
+    const keys: YearKey[] = ['yearOne', 'yearTwo', 'yearThree'];
+    return keys[year - 1];
+  };
+
   return (
-    <div className="min-h-screen p-8">
-      <h2 className="text-3xl font-bold mb-8 text-blue-600">
-        Financial Overview
-      </h2>
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          minHeight: '100vh',
+          backgroundColor: '#f8fafc',
+          py: 8,
+        }}
+      >
+        <Container maxWidth="lg">
+          <Paper
+            elevation={3}
+            sx={{
+              position: 'relative',
+              overflow: 'hidden',
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '4px',
+                background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+              },
+            }}
+          >
+            <Box sx={{ mb: 6 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                <DollarSign size={32} color={theme.palette.primary.main} />
+                <Typography variant="h1" sx={{ ml: 2 }}>
+                  Financial Overview
+                </Typography>
+              </Box>
+            </Box>
 
-      <div className="space-y-8">
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <div className="flex items-center gap-4 mb-6">
-            <DollarSign className="w-8 h-8 text-blue-600" />
-            <h3 className="text-2xl font-semibold">
-              Current Financial Position
-            </h3>
-          </div>
+            <Paper
+              elevation={2}
+              sx={{
+                mb: 4,
+                backgroundColor: theme.palette.primary.light,
+              }}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                <DollarSign size={24} color={theme.palette.primary.main} />
+                <Typography
+                  variant="h2"
+                  sx={{ ml: 2, mb: 0, color: theme.palette.primary.main }}
+                >
+                  Current Financial Position
+                </Typography>
+              </Box>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <p className="text-sm text-gray-600">Company Balance</p>
-              <p className="text-2xl font-bold text-blue-600">
-                {data.companyBalance}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <p className="text-sm text-gray-600">Yearly Expenses</p>
-              <p className="text-2xl font-bold text-blue-600">
-                {data.yearlyExpenses}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <p className="text-sm text-gray-600">Current Revenue</p>
-              <p className="text-2xl font-bold text-blue-600">{data.revenue}</p>
-            </div>
-          </div>
-        </div>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={4}>
+                  <Card
+                    sx={{
+                      height: '100%',
+                      transition: 'transform 0.2s',
+                      '&:hover': { transform: 'translateY(-4px)' },
+                    }}
+                  >
+                    <CardContent>
+                      <Typography
+                        variant="subtitle2"
+                        color="textSecondary"
+                        gutterBottom
+                      >
+                        Company Balance
+                      </Typography>
+                      <Typography variant="h4" color="primary">
+                        {data.companyBalance}
+                      </Typography>
+                      <LinearProgress
+                        variant="determinate"
+                        value={70}
+                        sx={{ mt: 2, height: 6, borderRadius: 3 }}
+                      />
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <Card
+                    sx={{
+                      height: '100%',
+                      transition: 'transform 0.2s',
+                      '&:hover': { transform: 'translateY(-4px)' },
+                    }}
+                  >
+                    <CardContent>
+                      <Typography
+                        variant="subtitle2"
+                        color="textSecondary"
+                        gutterBottom
+                      >
+                        Yearly Expenses
+                      </Typography>
+                      <Typography variant="h4" color="error">
+                        {data.yearlyExpenses}
+                      </Typography>
+                      <LinearProgress
+                        variant="determinate"
+                        value={45}
+                        color="error"
+                        sx={{ mt: 2, height: 6, borderRadius: 3 }}
+                      />
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <Card
+                    sx={{
+                      height: '100%',
+                      transition: 'transform 0.2s',
+                      '&:hover': { transform: 'translateY(-4px)' },
+                    }}
+                  >
+                    <CardContent>
+                      <Typography
+                        variant="subtitle2"
+                        color="textSecondary"
+                        gutterBottom
+                      >
+                        Current Revenue
+                      </Typography>
+                      <Typography variant="h4" color="success.main">
+                        {data.revenue}
+                      </Typography>
+                      <LinearProgress
+                        variant="determinate"
+                        value={85}
+                        color="success"
+                        sx={{ mt: 2, height: 6, borderRadius: 3 }}
+                      />
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
+            </Paper>
 
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <div className="flex items-center gap-4 mb-6">
-            <PiggyBank className="w-8 h-8 text-blue-600" />
-            <h3 className="text-2xl font-semibold">Investment & Funding</h3>
-          </div>
+            <Paper
+              elevation={2}
+              sx={{
+                mb: 4,
+                backgroundColor: alpha(theme.palette.secondary.main, 0.05),
+              }}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                <PiggyBank size={24} color={theme.palette.secondary.main} />
+                <Typography
+                  variant="h2"
+                  sx={{ ml: 2, mb: 0, color: theme.palette.secondary.main }}
+                >
+                  Investment & Funding
+                </Typography>
+              </Box>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h4 className="text-lg font-semibold mb-4">Owner's Investment</h4>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Contributions:</span>
-                  <span className="font-medium">{data.ownerContributions}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Withdrawals:</span>
-                  <span className="font-medium">{data.ownerWithdrawals}</span>
-                </div>
-              </div>
-            </div>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6}>
+                  <Card>
+                    <CardContent>
+                      <Typography variant="h6" gutterBottom>
+                        Owner's Investment
+                      </Typography>
+                      <Box sx={{ mt: 2 }}>
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            mb: 2,
+                          }}
+                        >
+                          <Typography color="textSecondary">
+                            Contributions:
+                          </Typography>
+                          <Typography variant="h6">
+                            {data.ownerContributions}
+                          </Typography>
+                        </Box>
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                          }}
+                        >
+                          <Typography color="textSecondary">
+                            Withdrawals:
+                          </Typography>
+                          <Typography variant="h6">
+                            {data.ownerWithdrawals}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Card>
+                    <CardContent>
+                      <Typography variant="h6" gutterBottom>
+                        External Funding
+                      </Typography>
+                      <Box sx={{ mt: 2 }}>
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            mb: 2,
+                          }}
+                        >
+                          <Typography color="textSecondary">
+                            Amount Needed:
+                          </Typography>
+                          <Typography variant="h6">
+                            {data.loanDetails}
+                          </Typography>
+                        </Box>
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            mb: 2,
+                          }}
+                        >
+                          <Typography color="textSecondary">Type:</Typography>
+                          <Typography variant="h6">
+                            {data.interestType}
+                          </Typography>
+                        </Box>
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                          }}
+                        >
+                          <Typography color="textSecondary">
+                            Expected Date:
+                          </Typography>
+                          <Typography variant="h6">
+                            {data.expectedFundMonth} {data.expectedFundYear}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
+            </Paper>
 
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h4 className="text-lg font-semibold mb-4">External Funding</h4>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Amount Needed:</span>
-                  <span className="font-medium">{data.loanDetails}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Type:</span>
-                  <span className="font-medium">{data.interestType}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Expected Date:</span>
-                  <span className="font-medium">
-                    {data.expectedFundMonth} {data.expectedFundYear}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+            <Paper
+              elevation={2}
+              sx={{
+                mb: 4,
+                backgroundColor: alpha(theme.palette.success.main, 0.05),
+              }}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                <TrendingUp size={24} color={theme.palette.success.main} />
+                <Typography
+                  variant="h2"
+                  sx={{ ml: 2, mb: 0, color: theme.palette.success.main }}
+                >
+                  Profit & Loss Forecast
+                </Typography>
+              </Box>
 
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <div className="flex items-center gap-4 mb-6">
-            <TrendingUp className="w-8 h-8 text-blue-600" />
-            <h3 className="text-2xl font-semibold">Profit & Loss Forecast</h3>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-gray-50">
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
-                    Item
-                  </th>
-                  <th className="px-6 py-3 text-right text-sm font-semibold text-gray-600">
-                    Year 1
-                  </th>
-                  <th className="px-6 py-3 text-right text-sm font-semibold text-gray-600">
-                    Year 2
-                  </th>
-                  <th className="px-6 py-3 text-right text-sm font-semibold text-gray-600">
-                    Year 3
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {data.products.map((product, index) => (
-                  <React.Fragment key={index}>
-                    <tr>
-                      <td className="px-6 py-4 text-sm text-gray-700">
-                        Revenue
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-700 text-right">
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Item</TableCell>
+                      <TableCell align="right">Year 1</TableCell>
+                      <TableCell align="right">Year 2</TableCell>
+                      <TableCell align="right">Year 3</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {data.products.map((product, index) => (
+                      <React.Fragment key={index}>
+                        <TableRow>
+                          <TableCell>Revenue</TableCell>
+                          <TableCell align="right">
+                            $
+                            {parseInt(
+                              product.revenueExpected.yearOne
+                            ).toLocaleString()}
+                          </TableCell>
+                          <TableCell align="right">
+                            $
+                            {parseInt(
+                              product.revenueExpected.yearTwo
+                            ).toLocaleString()}
+                          </TableCell>
+                          <TableCell align="right">
+                            $
+                            {parseInt(
+                              product.revenueExpected.yearThree
+                            ).toLocaleString()}
+                          </TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell>Cost of Goods</TableCell>
+                          <TableCell align="right">
+                            $
+                            {parseInt(
+                              product.costOfGoods.yearOne
+                            ).toLocaleString()}
+                          </TableCell>
+                          <TableCell align="right">
+                            $
+                            {parseInt(
+                              product.costOfGoods.yearTwo
+                            ).toLocaleString()}
+                          </TableCell>
+                          <TableCell align="right">
+                            $
+                            {parseInt(
+                              product.costOfGoods.yearThree
+                            ).toLocaleString()}
+                          </TableCell>
+                        </TableRow>
+                      </React.Fragment>
+                    ))}
+                    <TableRow
+                      sx={{
+                        backgroundColor: alpha(theme.palette.success.main, 0.1),
+                      }}
+                    >
+                      <TableCell
+                        sx={{
+                          fontWeight: 600,
+                          color: theme.palette.success.main,
+                        }}
+                      >
+                        Net Profit
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        sx={{
+                          fontWeight: 600,
+                          color: theme.palette.success.main,
+                        }}
+                      >
                         $
-                        {parseInt(
-                          product.revenueExpected.yearOne
-                        ).toLocaleString()}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-700 text-right">
+                        {data.products
+                          .reduce(
+                            (sum, product) =>
+                              sum +
+                              (parseInt(product.revenueExpected.yearOne) -
+                                parseInt(product.costOfGoods.yearOne)),
+                            0
+                          )
+                          .toLocaleString()}
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        sx={{
+                          fontWeight: 600,
+                          color: theme.palette.success.main,
+                        }}
+                      >
                         $
-                        {parseInt(
-                          product.revenueExpected.yearTwo
-                        ).toLocaleString()}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-700 text-right">
+                        {data.products
+                          .reduce(
+                            (sum, product) =>
+                              sum +
+                              (parseInt(product.revenueExpected.yearTwo) -
+                                parseInt(product.costOfGoods.yearTwo)),
+                            0
+                          )
+                          .toLocaleString()}
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        sx={{
+                          fontWeight: 600,
+                          color: theme.palette.success.main,
+                        }}
+                      >
                         $
-                        {parseInt(
-                          product.revenueExpected.yearThree
-                        ).toLocaleString()}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 text-sm text-gray-700">
-                        Cost of Goods
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-700 text-right">
-                        $
-                        {parseInt(product.costOfGoods.yearOne).toLocaleString()}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-700 text-right">
-                        $
-                        {parseInt(product.costOfGoods.yearTwo).toLocaleString()}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-700 text-right">
-                        $
-                        {parseInt(
-                          product.costOfGoods.yearThree
-                        ).toLocaleString()}
-                      </td>
-                    </tr>
-                  </React.Fragment>
-                ))}
-                <tr className="bg-green-50">
-                  <td className="px-6 py-4 text-sm font-medium text-green-700">
-                    Net Profit
-                  </td>
-                  <td className="px-6 py-4 text-sm font-medium text-green-700 text-right">
-                    $
-                    {data.products
-                      .reduce(
-                        (sum, product) =>
-                          sum +
-                          (parseInt(product.revenueExpected.yearOne) -
-                            parseInt(product.costOfGoods.yearOne)),
-                        0
-                      )
-                      .toLocaleString()}
-                  </td>
-                  <td className="px-6 py-4 text-sm font-medium text-green-700 text-right">
-                    $
-                    {data.products
-                      .reduce(
-                        (sum, product) =>
-                          sum +
-                          (parseInt(product.revenueExpected.yearTwo) -
-                            parseInt(product.costOfGoods.yearTwo)),
-                        0
-                      )
-                      .toLocaleString()}
-                  </td>
-                  <td className="px-6 py-4 text-sm font-medium text-green-700 text-right">
-                    $
-                    {data.products
-                      .reduce(
-                        (sum, product) =>
-                          sum +
-                          (parseInt(product.revenueExpected.yearThree) -
-                            parseInt(product.costOfGoods.yearThree)),
-                        0
-                      )
-                      .toLocaleString()}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+                        {data.products
+                          .reduce(
+                            (sum, product) =>
+                              sum +
+                              (parseInt(product.revenueExpected.yearThree) -
+                                parseInt(product.costOfGoods.yearThree)),
+                            0
+                          )
+                          .toLocaleString()}
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Paper>
 
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <div className="flex items-center gap-4 mb-6">
-            <Wallet className="w-8 h-8 text-blue-600" />
-            <h3 className="text-2xl font-semibold">Assets Overview</h3>
-          </div>
+            <Paper
+              elevation={2}
+              sx={{
+                backgroundColor: alpha(theme.palette.primary.main, 0.05),
+              }}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                <Wallet size={24} color={theme.palette.primary.main} />
+                <Typography
+                  variant="h2"
+                  sx={{ ml: 2, mb: 0, color: theme.palette.primary.main }}
+                >
+                  Assets Overview
+                </Typography>
+              </Box>
 
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-gray-50">
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
-                    Asset Name
-                  </th>
-                  <th className="px-6 py-3 text-right text-sm font-semibold text-gray-600">
-                    Cost
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {data.assets.map((asset, index) => (
-                  <tr key={index}>
-                    <td className="px-6 py-4 text-sm text-gray-700">
-                      {asset.name}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-700 text-right">
-                      ${parseInt(asset.cost).toLocaleString()}
-                    </td>
-                  </tr>
-                ))}
-                <tr className="bg-blue-50">
-                  <td className="px-6 py-4 text-sm font-medium text-blue-700">
-                    Total Assets
-                  </td>
-                  <td className="px-6 py-4 text-sm font-medium text-blue-700 text-right">
-                    $
-                    {data.assets
-                      .reduce((sum, asset) => sum + parseInt(asset.cost), 0)
-                      .toLocaleString()}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Asset Name</TableCell>
+                      <TableCell align="right">Cost</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {data.assets.map((asset, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{asset.name}</TableCell>
+                        <TableCell align="right">
+                          ${parseInt(asset.cost).toLocaleString()}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                    <TableRow
+                      sx={{
+                        backgroundColor: alpha(theme.palette.primary.main, 0.1),
+                      }}
+                    >
+                      <TableCell
+                        sx={{
+                          fontWeight: 600,
+                          color: theme.palette.primary.main,
+                        }}
+                      >
+                        Total Assets
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        sx={{
+                          fontWeight: 600,
+                          color: theme.palette.primary.main,
+                        }}
+                      >
+                        $
+                        {data.assets
+                          .reduce((sum, asset) => sum + parseInt(asset.cost), 0)
+                          .toLocaleString()}
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Paper>
+          </Paper>
+        </Container>
+      </Box>
+    </ThemeProvider>
   );
 };
 

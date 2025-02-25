@@ -1,55 +1,259 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BusinessPlanData } from './types';
 import { Target, TrendingUp, Shield } from 'lucide-react';
+import { AIchatSessionForSummary } from '../AIPrompts/summary';
+import {
+  competitiveAdvantagePrompts,
+  objectivePrompts,
+} from '../AIPrompts/prompts';
+import {
+  Box,
+  Container,
+  Typography,
+  Paper,
+  ThemeProvider,
+  createTheme,
+  alpha,
+  Fade,
+  CircularProgress,
+  Stepper,
+  Step,
+  StepLabel,
+  StepContent,
+} from '@mui/material';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#2563eb',
+      light: alpha('#2563eb', 0.1),
+    },
+    secondary: {
+      main: '#7c3aed',
+    },
+    success: {
+      main: '#22c55e',
+    },
+  },
+  typography: {
+    fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
+    h1: {
+      fontSize: '2.5rem',
+      fontWeight: 700,
+      color: '#2563eb',
+    },
+    h2: {
+      fontSize: '1.75rem',
+      fontWeight: 600,
+      marginBottom: '1.5rem',
+    },
+    h3: {
+      fontSize: '1.25rem',
+      fontWeight: 600,
+      marginBottom: '1rem',
+    },
+    body1: {
+      fontSize: '1rem',
+      lineHeight: 1.7,
+      color: '#374151',
+    },
+  },
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+          padding: 24,
+        },
+      },
+    },
+    MuiStepLabel: {
+      styleOverrides: {
+        label: {
+          fontSize: '1rem',
+          fontWeight: 500,
+        },
+      },
+    },
+  },
+});
 
 interface Props {
   data: BusinessPlanData;
 }
 
 const MarketingPlan: React.FC<Props> = ({ data }) => {
+  const [objective, setObjective] = useState('');
+  const [comAdvantage, setComAdvantage] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  const generateObjective = async () => {
+    try {
+      const prompt = objectivePrompts(data.objective);
+      const result = await AIchatSessionForSummary.sendMessage(prompt);
+      const response = await result.response.text();
+      setObjective(response);
+    } catch (error) {
+      console.error('Sorry, something happened');
+    }
+  };
+
+  const generatecompetitiveAd = async () => {
+    try {
+      const prompt = competitiveAdvantagePrompts(data.competitiveAdvantage);
+      const result = await AIchatSessionForSummary.sendMessage(prompt);
+      const response = await result.response.text();
+      setComAdvantage(response);
+      setLoading(false);
+    } catch (error) {
+      console.error('Sorry, something happened');
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    generateObjective();
+    generatecompetitiveAd();
+  }, []);
+
   return (
-    <div className="min-h-screen p-8 border-b">
-      <h2 className="text-3xl font-bold mb-8 text-blue-600">Marketing Plan</h2>
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          minHeight: '100vh',
+          backgroundColor: '#f8fafc',
+          py: 8,
+        }}
+      >
+        <Container maxWidth="lg">
+          <Paper
+            elevation={3}
+            sx={{
+              position: 'relative',
+              overflow: 'hidden',
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '4px',
+                background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+              },
+            }}
+          >
+            <Box sx={{ mb: 6 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                <Target size={32} color={theme.palette.primary.main} />
+                <Typography variant="h1" sx={{ ml: 2 }}>
+                  Marketing Plan
+                </Typography>
+              </Box>
+            </Box>
 
-      <div className="space-y-8">
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <div className="flex items-center gap-4 mb-6">
-            <Target className="w-8 h-8 text-blue-600" />
-            <h3 className="text-2xl font-semibold">Business Objective</h3>
-          </div>
-          <p className="text-gray-700 leading-relaxed">{data.objective}</p>
-        </div>
+            <Fade in={!loading}>
+              <Box sx={{ display: loading ? 'none' : 'block' }}>
+                <Paper
+                  elevation={2}
+                  sx={{
+                    mb: 4,
+                    backgroundColor: theme.palette.primary.light,
+                    transition: 'transform 0.2s',
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                    },
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                    <Target size={24} color={theme.palette.primary.main} />
+                    <Typography
+                      variant="h2"
+                      sx={{ ml: 2, mb: 0, color: theme.palette.primary.main }}
+                    >
+                      Business Objective
+                    </Typography>
+                  </Box>
+                  <Typography variant="body1">{objective}</Typography>
+                </Paper>
 
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <div className="flex items-center gap-4 mb-6">
-            <TrendingUp className="w-8 h-8 text-blue-600" />
-            <h3 className="text-2xl font-semibold">Strategic Steps</h3>
-          </div>
-          <div className="space-y-4">
-            {data.strategicSteps.map((step, index) => (
-              <div key={index} className="flex items-start gap-4">
-                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-blue-600 font-semibold">
-                    {index + 1}
-                  </span>
-                </div>
-                <p className="text-gray-700 leading-relaxed pt-1">{step}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+                <Paper
+                  elevation={2}
+                  sx={{
+                    mb: 4,
+                    backgroundColor: alpha(theme.palette.secondary.main, 0.05),
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                    <TrendingUp
+                      size={24}
+                      color={theme.palette.secondary.main}
+                    />
+                    <Typography
+                      variant="h2"
+                      sx={{ ml: 2, mb: 0, color: theme.palette.secondary.main }}
+                    >
+                      Strategic Steps
+                    </Typography>
+                  </Box>
+                  <Stepper orientation="vertical">
+                    {data.strategicSteps.map((step, index) => (
+                      <Step key={index} active={true}>
+                        <StepLabel>
+                          <Typography
+                            variant="h6"
+                            sx={{ color: theme.palette.secondary.main }}
+                          >
+                            Step {index + 1}
+                          </Typography>
+                        </StepLabel>
+                        <StepContent>
+                          <Typography variant="body1">{step}</Typography>
+                        </StepContent>
+                      </Step>
+                    ))}
+                  </Stepper>
+                </Paper>
 
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <div className="flex items-center gap-4 mb-6">
-            <Shield className="w-8 h-8 text-blue-600" />
-            <h3 className="text-2xl font-semibold">Competitive Advantage</h3>
-          </div>
-          <p className="text-gray-700 leading-relaxed">
-            {data.competitiveAdvantage}
-          </p>
-        </div>
-      </div>
-    </div>
+                <Paper
+                  elevation={2}
+                  sx={{
+                    backgroundColor: alpha(theme.palette.success.main, 0.05),
+                    transition: 'transform 0.2s',
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                    },
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                    <Shield size={24} color={theme.palette.success.main} />
+                    <Typography
+                      variant="h2"
+                      sx={{ ml: 2, mb: 0, color: theme.palette.success.main }}
+                    >
+                      Competitive Advantage
+                    </Typography>
+                  </Box>
+                  <Typography variant="body1">{comAdvantage}</Typography>
+                </Paper>
+              </Box>
+            </Fade>
+
+            {loading && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  minHeight: '300px',
+                }}
+              >
+                <CircularProgress />
+              </Box>
+            )}
+          </Paper>
+        </Container>
+      </Box>
+    </ThemeProvider>
   );
 };
 

@@ -1,12 +1,36 @@
 import React from 'react';
 import { BusinessPlanData } from './types';
-import { Users } from 'lucide-react';
+import {
+  Building2,
+  Target,
+  Users,
+  BarChart3,
+  PieChart as PieChartIcon,
+  DollarSign,
+  TrendingUp,
+  ChevronLeft,
+  ChevronRight,
+  FileText,
+} from 'lucide-react';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  PieChart,
+  Pie,
+  Cell,
+} from 'recharts';
 
 interface Props {
   data: BusinessPlanData;
 }
 
 const TargetCustomers: React.FC<Props> = ({ data }) => {
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
   const relevantCustomerDetails = Object.entries(data.targetCustomers)
     .filter(([key, value]) => value)
     .map(([key]) => ({
@@ -36,6 +60,29 @@ const TargetCustomers: React.FC<Props> = ({ data }) => {
             </div>
           ))}
         </div>
+      </div>
+      <div className="bg-gray-50 p-6 rounded-lg">
+        <PieChart width={400} height={300}>
+          <Pie
+            data={[
+              { name: 'Enterprise', value: 60 },
+              { name: 'Mid-Market', value: 30 },
+              { name: 'Small Business', value: 10 },
+            ]}
+            cx={200}
+            cy={150}
+            outerRadius={80}
+            fill="#8884d8"
+            dataKey="value"
+            label
+          >
+            {COLORS.map((color, index) => (
+              <Cell key={`cell-${index}`} fill={color} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
       </div>
     </div>
   );

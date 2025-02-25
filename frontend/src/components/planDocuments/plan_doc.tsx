@@ -7,7 +7,7 @@ import TableOfContents from './tableOfContent';
 import ExecutiveSummary from './executiveSummary';
 import CompanyOverview from './companyOverview';
 import ProductOverview from './productOverview';
-import MarketingPlan from './targetCustomers';
+import MarketingPlan from './marketingPlan';
 import TargetCustomers from './targetCustomers';
 import OperationalPlan from './operationalPlan';
 import SalesForecast from './saleFocast';
